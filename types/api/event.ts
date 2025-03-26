@@ -27,6 +27,15 @@ export interface NewSeat {
 }
 
 /* Interface for Data response */
+export interface EventBase {
+  id: string;
+  title: string;
+  thumbnail: string;
+  description: string;
+  place: string;
+  artist: string;
+}
+
 export interface Event {
   id: string;
   title: string;
@@ -36,6 +45,7 @@ export interface Event {
   place: string;
   artist: string;
   ticketingOpenTime: string;
+  eventOpenTime: string;
   totalMap?: string;
   createdAt?: string;
   updatedAt?: string;
@@ -48,20 +58,10 @@ export interface EventDatetime {
   updatedAt?: string;
 }
 
-export interface DetailedEvent {
-  id: string;
-  title: string;
-  description: string;
-  eventDatetimes: EventDatetime[];
-  thumbnail: string;
-  place: string;
-  artist: string;
-  ticketingOpenTime: string;
+export interface DetailedEvent extends Event {
   totalMap: string;
   areas: Area[];
   seats: Seat[];
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export interface Area {

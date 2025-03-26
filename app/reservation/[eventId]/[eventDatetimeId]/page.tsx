@@ -1,3 +1,5 @@
+"use client";
+
 import { useParams } from "next/navigation";
 import useReservationStore from "../../../../store/reservation/useReservationStore";
 import { useEffect } from "react";
@@ -16,11 +18,13 @@ import {
   AreaWithSeatCount,
   SeatWithAreaWithReservation,
 } from "../../../../types/api/event";
+import ReservationCreationBox from "../../../../components/order/ReservationCreationBox";
 
 const ReservationPage = () => {
   const { eventId: urlEventId, eventDatetimeId: urlEventDatetimeId } =
     useParams<{ eventId: string; eventDatetimeId: string }>();
   const {
+    setEvent,
     setEventId,
     setEventDatetimeId,
     setSeatsMap,
@@ -51,36 +55,34 @@ const ReservationPage = () => {
     if (eventData) {
       const areasMap: Map<string, AreaWithSeatCount> = eventData.areas.reduce(
         (map, area) => {
-          map[area.id] = {
+          map.set(area.id, {
             id: area.id,
             areaMap: area.areaMap,
             label: area.label,
             price: area.price,
             seatCount: area.seats.length,
-          };
+          });
           return map;
         },
-        {} as Map<string, AreaWithSeatCount>
+        new Map()
       );
-
       setAreasMap(areasMap);
+
+      const { id, description, title, thumbnail, artist, place } = eventData;
+      setEvent({ id, description, title, thumbnail, artist, place });
     }
   }, [eventData, setAreasMap]);
 
   useEffect(() => {
     if (reservationData) {
       const seatsMap: Map<string, SeatWithAreaWithReservation> =
-        reservationData.reduce(
-          (map, seatReservation) => {
-            map[seatReservation.id] = reservationData;
-            return map;
-          },
-          {} as Map<string, SeatWithAreaWithReservation>
-        );
-
+        reservationData.reduce((map, seatReservation) => {
+          map.set(seatReservation.id, seatReservation); // map.set()을 사용
+          return map;
+        }, new Map());
       setSeatsMap(seatsMap);
 
-      const areaStat: AreaReservationStat[] = Object.keys(areasMap).map(
+      const areaStat: AreaReservationStat[] = Array.from(areasMap.keys()).map(
         (areaId) => {
           const area = areasMap.get(areaId);
           if (!area)
@@ -99,7 +101,6 @@ const ReservationPage = () => {
           };
         }
       );
-
       setAreaStat(areaStat);
     }
   }, [reservationData, areasMap, setSeatsMap, setAreaStat]);
@@ -116,7 +117,8 @@ const ReservationPage = () => {
       topContent={<ReservationUpperEvent {...eventData} />}
       centerContent={<ReservationSeatContainer {...eventData} />}
       rightTopContent={<ReservationMinimap />}
-      rightBottomContent={<ReservationSeatInfo {...eventData} />}
+      rightMiddleContent={<ReservationSeatInfo {...eventData} />}
+      rightBottomContent={<ReservationCreationBox {...eventData} />}
     />
   );
 };

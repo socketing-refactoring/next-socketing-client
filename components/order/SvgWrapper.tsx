@@ -35,33 +35,23 @@ const SvgWrapper = forwardRef<SVGSVGElement, SvgWrapperProps>(
       if (!svgString) return;
 
       try {
-        const parsedData: ParsedSvgData = { svgString };
-
-        // Create a temporary div element to parse the SVG string
+        // const parsedData = JSON.parse(svgString) as ParsedSvgData;
         const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = parsedData.svgString;
-
-        // Use querySelector to select the <svg> element
+        tempDiv.innerHTML = svgString;
         const svgElement = tempDiv.querySelector("svg");
 
         if (svgElement) {
-          // Extract the viewBox and content, excluding certain elements
-          const viewBox = svgElement.getAttribute("viewBox") || "";
-          const content = Array.from(svgElement.children)
-            .filter((child) => {
-              // Filter out elements with the class "seats"
-              return (
-                !(child instanceof Element) ||
-                !child.classList.contains("seats")
-              );
-            })
-            .map((child) => child.outerHTML)
-            .join(""); // Join the outerHTML of each child to create the content string
-
-          // Set the extracted data (viewBox and content)
           setSvgContent({
-            viewBox,
-            content,
+            viewBox: svgElement.getAttribute("viewBox") || "",
+            content: Array.from(svgElement.children)
+              .filter((child) => {
+                return (
+                  !(child instanceof Element) ||
+                  !child.classList.contains("seats")
+                );
+              })
+              .map((child) => child.outerHTML)
+              .join(""),
           });
         }
       } catch (error) {

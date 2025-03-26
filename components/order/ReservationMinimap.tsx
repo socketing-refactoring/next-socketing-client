@@ -1,25 +1,35 @@
+import useReservationStore from "../../store/reservation/useReservationStore";
+
 const ReservationMinimap = () => {
+  const { areasMap, areaStat } = useReservationStore();
+
   return (
-    <div>
-      <h2 className="text-lg font-bold text-gray-800 mb-3 pl-2">좌석 상태</h2>
-      <div className="bg-white rounded-lg h-[calc(100%-2rem)]">
-        <div className="p-3 space-y-3">
-          <div className="flex items-center space-x-3">
-            <div className="w-5 h-5 rounded-full border border-gray-400 bg-[#FFF]"></div>
-            <span className="text-gray-600 font-bold">예매 가능</span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <div className="w-5 h-5 rounded-full border border-gray-400 bg-[#9CA3AF]"></div>
-            <span className="text-gray-600 font-bold">예매 완료</span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <div className="w-5 h-5 rounded-full border border-gray-400 bg-[#F66687]"></div>
-            <span className="text-gray-600 font-bold">내가 선택</span>
-          </div>
-          {/* <div className="flex items-center space-x-3">
-            <div className="w-5 h-5 rounded-full border border-gray-400 bg-[#FBBF24]"></div>
-            <span className="text-gray-600 font-bold">다른 사람이 선택</span>
-          </div> */}
+    <div className="h-full">
+      <h2 className="text-lg font-bold text-gray-800 mb-3 pl-2">구역 정보</h2>
+      <div className="bg-white rounded-lg md:h-3/4 overflow-y-auto">
+        <div className="p-3 space-y-3 text-sm">
+          {Array.from(areasMap.values()).map((area) => (
+            <div
+              key={area.id}
+              className="flex items-center w-full justify-between"
+            >
+              <div className="w-5 h-5 rounded-full border border-gray-400 bg-[#FFF] flex justify-center items-center">
+                <div className="text-gray-600 font-bold">{area.label}</div>
+              </div>
+              <div className="w-20 flex justify-end">
+                <div>{area.price} 원</div>
+              </div>
+              <div className="w-20 flex justify-end">
+                <div>
+                  {
+                    areaStat.filter((stat) => stat.id === area.id)[0]
+                      ?.reservedSeatCount
+                  }{" "}
+                  / {area.seatCount} 석
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

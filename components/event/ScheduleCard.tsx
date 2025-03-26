@@ -56,7 +56,7 @@ const ScheduleCard = ({
       toast.error("티켓팅이 아직 시작되지 않았습니다.");
       return;
     }
-    router.push(`/reservation/event/${eventId}/date/${eventDateId}`);
+    router.push(`/reservation/${eventId}/${eventDateId}`);
   };
 
   // const handleAdjacentReservationClick = () => {
