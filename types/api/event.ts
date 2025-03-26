@@ -52,7 +52,7 @@ export interface DetailedEvent {
   id: string;
   title: string;
   description: string;
-  eventDates: EventDatetime[];
+  eventDatetimes: EventDatetime[];
   thumbnail: string;
   place: string;
   artist: string;
@@ -65,19 +65,57 @@ export interface DetailedEvent {
 }
 
 export interface Area {
-  id?: string;
+  id: string;
   price: number;
   label: string;
   areaMap: string;
+  seats: Seat[];
 }
 
 export interface Seat {
-  area_id?: number;
-  id?: string;
+  id: string;
   cx: number;
   cy: number;
   row: number;
   number: number;
-  // area_label;
-  // area_price;
+  areaId?: string;
 }
+
+export interface SeatWithArea extends Seat {
+  areaId: string;
+  areaLabel: string;
+  areaPrice: number;
+}
+
+export interface SeatWithAreaWithReservation extends SeatWithArea {
+  reservationId: string;
+  reserverId: string;
+  reserverName: string;
+  reserverEmail: string;
+}
+
+// export interface SeatReservation {
+//   id: string,
+//   areaId: string,
+//   reservationId: string,
+//   reserverId: string,
+//   reserverName: string,
+//   reserverEmail: string
+// }
+
+export interface AreaWithSeatCount {
+  id?: string;
+  price: number;
+  label: string;
+  areaMap: string;
+  seatCount: number;
+}
+
+export interface AreaReservationStat {
+  id: string;
+  totalSeatCount: number;
+  reservedSeatCount: number;
+}
+
+export type SeatStatus = "available" | "reserved" | "selected";
+// | "temporary_hold";

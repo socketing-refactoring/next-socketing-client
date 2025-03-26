@@ -23,7 +23,6 @@ const MyPage = () => {
   const { memberId } = useMemberStore();
 
   const useOrders = (id: string) => {
-    console.log("memberId", memberId);
     return useQuery<ApiResponse<Order[]>>({
       queryKey: ["all-orders", id],
       queryFn: () =>
@@ -56,7 +55,7 @@ const MyPage = () => {
   const renderReservationList = (orders: Order[], emptyMessage: string) => (
     <div className="mb-4">
       <ul className="space-y-4">
-        {!orders ? (
+        {!orders || orders.length == 0 ? (
           <div className="text-center">
             <p className="text-2xl font-bold text-gray-700 mb-5">
               {emptyMessage}

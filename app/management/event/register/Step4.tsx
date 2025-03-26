@@ -21,7 +21,6 @@ const Step4 = ({ onPrev }: { onPrev: () => void }) => {
       step3Data
     );
 
-    console.log("요청 데이터:", requestData);
     eventCreateMutation.mutate(requestData);
   };
 

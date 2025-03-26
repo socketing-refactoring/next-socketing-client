@@ -31,7 +31,7 @@ export function convertToCreateEventRequestDTO(
     artist: step1.artist,
     thumbnail: step1.thumbnail,
     eventDatetimes: step2.eventDatetimes.map((dt) =>
-      dayjs(dt).tz("Asia/Seoul").toISOString()
+      dayjs(dt.value).tz("Asia/Seoul").toISOString()
     ),
     eventOpenTime: dayjs(step2.eventOpenTime).tz("Asia/Seoul").toISOString(),
     ticketingOpenTime: dayjs(step2.ticketingOpenTime)

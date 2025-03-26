@@ -8,10 +8,12 @@ export const ORDER_SERVER_URL = API_SERVER_URL + "/api/v1/orders";
 export const fetchAllOrdersByMemberId = async (
   memberId: string
 ): Promise<ApiResponse<Order[]>> => {
-  console.log("fetch", memberId);
-  const response = await axios.get<ApiResponse<Order[]>>(ORDER_SERVER_URL, {
-    params: { memberId },
-  });
+  const response = await axios.get<ApiResponse<Order[]>>(
+    `${ORDER_SERVER_URL}/detail`,
+    {
+      params: { memberId },
+    }
+  );
   return response.data;
 };
 

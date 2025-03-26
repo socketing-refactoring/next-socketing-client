@@ -20,7 +20,6 @@ export const useLoginMutation = () => {
       return response.data;
     },
     onSuccess: (data: ApiResponse<AuthTokenData>) => {
-      router.push("/");
       setIsLogin(true);
       toast.success("로그인되었습니다.");
 

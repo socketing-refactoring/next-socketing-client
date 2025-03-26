@@ -10,30 +10,17 @@ import EventDetailTemplate from "../../../components/event/EventDetailTemplate";
 import EventDetailHeader from "../../../components/event/EventDetailHeader";
 import EventDetailScheduleTab from "../../../components/event/EventDetailScheduleTab";
 import EventDetailAboutTab from "../../../components/event/EventDetailAboutTab";
-import { useQuery } from "react-query";
-import { ApiResponse } from "../../../types/api/common";
-import { Event } from "../../../types/api/event";
-import { fetchOneEvent } from "../../../api/eventApi";
+import useEvents from "../../../hooks/useEvents";
 import { useParams } from "next/navigation";
 
 const EventDetailPage = () => {
   const { setEvent, setFilteredEvent } = useEventDetailStore();
   const { eventId } = useParams();
-
-  const useEvents = (eventId?: string) => {
-    return useQuery<ApiResponse<Event>>(
-      ["one-event", eventId],
-      async ({ queryKey }) => {
-        const [, eventId] = queryKey;
-        return fetchOneEvent(eventId as string);
-      }
-    );
-  };
   const { data, isLoading, isError } = useEvents(eventId as string);
 
   useEffect(() => {
-    if (data?.data) {
-      const eventData = data.data;
+    if (data) {
+      const eventData = data?.data;
       setEvent(eventData);
 
       const filteredEvent = {

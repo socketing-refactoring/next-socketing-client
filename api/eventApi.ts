@@ -1,6 +1,11 @@
 import axios from "axios";
 import { API_SERVER_URL } from "../constants/server";
-import { Event, NewEvent } from "../types/api/event";
+import {
+  DetailedEvent,
+  Event,
+  NewEvent,
+  SeatReservation,
+} from "../types/api/event";
 import { ApiResponse } from "../types/api/common";
 
 export const EVENT_SERVER_URL = API_SERVER_URL + "/api/v1/events";
@@ -11,6 +16,25 @@ export const fetchOneEvent = async (
 ): Promise<ApiResponse<Event>> => {
   const { data } = await axios.get<ApiResponse<Event>>(
     `${EVENT_SERVER_URL}/${eventId}`
+  );
+  return data;
+};
+
+export const fetchOneEventDetail = async (
+  eventId: string
+): Promise<ApiResponse<DetailedEvent>> => {
+  const { data } = await axios.get<ApiResponse<DetailedEvent>>(
+    `${EVENT_SERVER_URL}/${eventId}/detail`
+  );
+  return data;
+};
+
+export const fetchOneEventReservationDetails = async (
+  eventId: string,
+  eventDatetimeId: string
+): Promise<ApiResponse<SeatReservation[]>> => {
+  const { data } = await axios.get<ApiResponse<SeatReservation[]>>(
+    `${EVENT_SERVER_URL}/${eventId}/dates/${eventDatetimeId}/seat-reservation/detail`
   );
   return data;
 };

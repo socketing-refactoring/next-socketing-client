@@ -37,7 +37,7 @@ const Step3 = ({
     const removableGroups = clonedSvg.querySelectorAll("g.seats, g.areas");
     removableGroups.forEach((group) => group.remove());
 
-    console.log("Generated SVG:", clonedSvg.outerHTML);
+    // console.log("Generated SVG:", clonedSvg.outerHTML);
 
     return { svgString: clonedSvg.outerHTML };
   };
@@ -62,8 +62,6 @@ const Step3 = ({
         seats: seats,
       };
     });
-
-    console.log("New Areas:", newAreas);
     return newAreas;
   };
 

@@ -34,7 +34,7 @@ const Step1 = ({
       ); // 포스터 미리보기 이미지
       trigger();
     }
-  }, [step1Data, currentStep]);
+  }, [step1Data, currentStep, setValue, trigger]);
 
   const onSubmit = (data: Step1Form) => {
     if (isValid) {

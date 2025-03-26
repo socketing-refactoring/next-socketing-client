@@ -1,16 +1,16 @@
 import { useMutation } from "react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { Step1Form, Step2Form, Step3Form } from "../types/page/management";
 import { ApiError } from "next/dist/server/api-utils";
 import { EVENT_SERVER_URL } from "../api/eventApi";
+import { NewEvent } from "../types/api/event";
 
 export const useEventCreateMutation = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async (data: Step1Form & Step2Form & Step3Form) => {
+    mutationFn: async (data: NewEvent) => {
       const formData = new FormData();
 
       // Step 1 Data
@@ -46,9 +46,9 @@ export const useEventCreateMutation = () => {
       toast.success("모든 정보가 성공적으로 제출되었습니다!");
       router.push("/management/event");
     },
-    onError: (error: ApiError) => {
+    onError: (error: AxiosError<ApiError>) => {
       const errorMessage =
-        error?.message || "정보 제출 중 오류가 발생했습니다.";
+        error?.response?.data?.message || "정보 제출 중 오류가 발생했습니다.";
       toast.error(errorMessage);
     },
   });

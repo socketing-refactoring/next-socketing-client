@@ -1,12 +1,27 @@
+import { SeatWithArea } from "./event";
+
+export interface NewTempOrder {
+  eventTitle: string;
+  eventDatetimeId: string;
+  eventDatetime: string;
+  seats: SeatWithArea[];
+}
+
 export interface Order {
   id: string;
-  memberId: string;
+  orderMember: OrderMember;
   orderEvent: OrderEvent;
   eventDatetimeId: string;
   eventDatetime: string;
   reservations: Reservation[];
   canceledAt: string;
   createdAt: string;
+}
+
+export interface OrderMember {
+  memberId: string;
+  memberName: string;
+  memberEmail: string;
 }
 
 export interface OrderEvent {
@@ -21,8 +36,13 @@ export interface OrderEvent {
 export interface Reservation {
   id: string;
   seatId: string;
-  seatRow: number;
-  seatNumber: number;
-  areaId: string;
-  areaPrice: number;
+}
+
+export interface flatReservation {
+  id;
+  string;
+  seatId: string;
+  reserverId: string;
+  reserverName: string;
+  reserverEmail: string;
 }

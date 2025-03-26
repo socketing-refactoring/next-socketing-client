@@ -57,7 +57,10 @@ const Header = () => {
   const isTokenExpired = (token: string): boolean => {
     try {
       const { exp } = jwtDecode<JwtPayload>(token);
-      if (!exp) return true;
+      if (!exp) {
+        console.log("Failed to get expiration time in the access token");
+        return true;
+      }
 
       const currentTime = Math.floor(Date.now() / 1000);
       return currentTime > exp;
@@ -77,8 +80,8 @@ const Header = () => {
   // };
 
   const handleLogout = () => {
-    localStorage.setItem("authToken", "");
-    localStorage.removeItem("memberNickname");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("memberId");
     localStorage.removeItem("memberName");
     setMemberId(null);
     setMemberName(null);

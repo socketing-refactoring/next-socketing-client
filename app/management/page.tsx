@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { menuConfig } from "../../types/page/management";
+import { MANAGEMENT_MENU } from "../../constants/managementMenu";
 
 export default function ManagementPage() {
-  redirect(Object.values(menuConfig)[0].url);
+  redirect(Object.values(MANAGEMENT_MENU)[0].url);
 }

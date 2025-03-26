@@ -6,12 +6,14 @@ import {
   formatDateToKoreanTime,
 } from "../../utils/dateUtils";
 import Button from "../common/Button";
+import useMemberStore from "../../store/member/useMemberStore";
+import { useTicketingTime } from "../../hooks/useTicketingtime";
 
 interface ScheduleCardProps {
   eventId: string;
   eventDateId: string;
   date: Date;
-  ticketingStartTime?: number;
+  ticketingStartTime?: Date;
 }
 
 const ScheduleCard = ({
@@ -21,35 +23,52 @@ const ScheduleCard = ({
   ticketingStartTime,
 }: ScheduleCardProps) => {
   const router = useRouter();
-  const now = useCurrentTime();
+  const { memberId } = useMemberStore();
+  const { isNowTicketingStarted } = useTicketingTime(ticketingStartTime);
 
-  const isTicketingStarted = ticketingStartTime && now >= ticketingStartTime;
+  let isTicketingStarted = false;
+  if (
+    ticketingStartTime &&
+    new Date().valueOf() >= ticketingStartTime.valueOf()
+  ) {
+    isTicketingStarted = true;
+  } else {
+    isTicketingStarted = isNowTicketingStarted;
+  }
+
   const isDisabled = !isTicketingStarted;
 
   const checkLogin = () => {
-    const memberId = localStorage.getItem("memberId");
+    // const memberId = localStorage.getItem("memberId");
     if (!memberId) {
-      toast.success("예약 페이지에 접근하기 위해서는 로그인이 필요합니다.");
       return false;
     }
     return true;
   };
 
   const handleDefaultReservationClick = () => {
-    if (!checkLogin()) return;
-    router.push(`/waiting/${eventId}/${eventDateId}`);
-  };
-
-  const handleAdjacentReservationClick = () => {
-    if (!checkLogin()) return;
+    if (!checkLogin()) {
+      toast.success("예약 페이지에 접근하기 위해서는 로그인이 필요합니다.");
+      return;
+    }
 
     if (!isTicketingStarted) {
       toast.error("티켓팅이 아직 시작되지 않았습니다.");
       return;
     }
-
-    router.push(`/waiting/${eventId}/${eventDateId}`);
+    router.push(`/reservation/event/${eventId}/date/${eventDateId}`);
   };
+
+  // const handleAdjacentReservationClick = () => {
+  //   if (!checkLogin()) return;
+
+  //   if (!isTicketingStarted) {
+  //     toast.error("티켓팅이 아직 시작되지 않았습니다.");
+  //     return;
+  //   }
+
+  //   router.push(`/waiting/${eventId}/${eventDateId}`);
+  // };
 
   return (
     <>
@@ -67,13 +86,13 @@ const ScheduleCard = ({
           </div>
         </div>
         <div className="flex gap-2">
-          <Button
+          {/* <Button
             variant="dark"
             onClick={handleAdjacentReservationClick}
             className={`text-sm ${isDisabled ? "opacity-30" : ""}`}
           >
             {isDisabled ? "함께 예매 준비 중" : "함께 예매하기"}
-          </Button>
+          </Button> */}
           <Button
             variant="primary"
             onClick={handleDefaultReservationClick}
@@ -98,14 +117,14 @@ const ScheduleCard = ({
           </div>
         </div>
         <div className="flex gap-1 md:gap-2">
-          <Button
+          {/* <Button
             variant="dark"
             size="sm"
             onClick={handleAdjacentReservationClick}
             className={`${isDisabled ? "opacity-30" : ""}`}
           >
             {isDisabled ? "함께 준비" : "함께 예매"}
-          </Button>
+          </Button> */}
           <Button
             variant="primary"
             size="sm"

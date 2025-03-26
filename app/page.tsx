@@ -104,7 +104,7 @@ const UserMainPage = () => {
             티켓팅 오픈 예정 공연
           </h2>
           <div className="flex flex-col gap-4">
-            {impendingTicketingEvents ? (
+            {impendingTicketingEvents && impendingTicketingEvents.length > 0 ? (
               impendingTicketingEvents.map((event) => (
                 <div
                   key={event.id}
@@ -180,7 +180,7 @@ const UserMainPage = () => {
           <h2 className="text-2xl font-bold text-center mb-6">
             예매 진행 중인 공연
           </h2>
-          {ongoingTicketingEvents ? (
+          {ongoingTicketingEvents && ongoingTicketingEvents.length > 0 ? (
             <CardList events={ongoingTicketingEvents} />
           ) : (
             <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
