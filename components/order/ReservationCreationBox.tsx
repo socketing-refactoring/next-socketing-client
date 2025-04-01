@@ -57,7 +57,7 @@ const ReservationCreationBox = (eventData: DetailedEvent) => {
         onClick={() => void handleReservationSubmit()}
         className="p-4 w-full transition-colors flex items-center justify-between"
         variant="primary"
-        disabled={selectedSeats.size < 1 || selectedSeats.size >= MAX_TICKET}
+        disabled={selectedSeats.size < 1 || selectedSeats.size > MAX_TICKET}
       >
         <span>선택 좌석 예매하기</span>
         <div className="size-6 text-sm rounded-full flex items-center justify-center text-black bg-gray-300">

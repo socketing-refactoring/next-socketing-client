@@ -9,6 +9,7 @@ import Button from "../../components/common/Button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { formatToKoreanDateAndTime } from "../../utils/dateUtils";
+import { EVENT_SERVER_STATIC_PATH } from '../../api/eventApi';
 
 const OrderPage = () => {
   const router = useRouter();
@@ -109,7 +110,7 @@ const OrderPage = () => {
               <h2 className="text-lg font-bold mb-4">공연 티켓 정보</h2>
               <div className="flex items-center">
                 <img
-                  src={event.thumbnail}
+                  src={`${EVENT_SERVER_STATIC_PATH}/${event.thumbnail}`}
                   alt="공연 포스터"
                   className="w-24 h-28 rounded-md object-cover mr-4"
                 />

@@ -1,5 +1,6 @@
 "use client"
 
+import "../../../styles/tosspayment.css";
 import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';

@@ -1,5 +1,6 @@
 "use client"
 
+import "../../../styles/tosspayment.css";
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
