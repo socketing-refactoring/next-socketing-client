@@ -11,11 +11,12 @@ import { Order } from '../../../types/api/order';
 import { ApiResponse } from '../../../types/api/common';
 import { AxiosError } from 'axios';
 import useReservationStore from '../../../store/reservation/useReservationStore';
+import LoadingPage from '../../loading/page';
 
 const WidgetSuccessPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [responseData, setResponseData] = useState(null);
+  // const [responseData, setResponseData] = useState(null);
 
   const { currentTempOrder, eventDatetimeId } = useReservationStore();
   const { mutate, isLoading, isError, error } = useOrderCreateMutation();
@@ -29,10 +30,14 @@ const WidgetSuccessPage = () => {
       seatIds: currentTempOrder?.seats.map(seat => seat.id)
     };
 
+    console.log(orderData);
+
     if (orderData.tossOrderId && orderData.amount && orderData.paymentKey && orderData.eventDatetimeId && orderData.seatIds) {
+      console.log("order api request");
+
       mutate(orderData, {
         onSuccess: (data: ApiResponse<Order>) => {
-          setResponseData(data);
+          // setResponseData(data);
           router.push("/order/confirmation");
         },
         onError: (error: AxiosError<ApiError>) => {
@@ -65,15 +70,15 @@ const WidgetSuccessPage = () => {
             {`${searchParams.get("orderId")}`}
           </div>
         </div>
-        <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
+        {/* <div className="p-grid typography--p" style={{ marginTop: "10px" }}>
           <div className="p-grid-col text--left">
             <b>paymentKey</b>
           </div>
           <div className="p-grid-col text--right" id="paymentKey" style={{ whiteSpace: "initial", width: "250px" }}>
             {`${searchParams.get("paymentKey")}`}
           </div>
-        </div>
-        <div className="p-grid-col">
+        </div> */}
+        {/* <div className="p-grid-col">
           <Link href="https://docs.tosspayments.com/guides/v2/payment-widget/integration">
             <button className="button p-grid-col5">연동 문서</button>
           </Link>
@@ -82,21 +87,21 @@ const WidgetSuccessPage = () => {
               실시간 문의
             </button>
           </Link>
-        </div>
+        </div> */}
       </div>
-      <div className="box_section" style={{ width: "600px", textAlign: "left" }}>
+      {/* <div className="box_section" style={{ width: "600px", textAlign: "left" }}>
         <b>Response Data :</b>
         <div id="response" style={{ whiteSpace: "initial" }}>
           {responseData && <pre>{JSON.stringify(responseData, null, 4)}</pre>}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
 
 export default function Page() {
   return (
-    <Suspense fallback={<div>로딩 중...</div>}>
+    <Suspense fallback={<LoadingPage />}>
       <WidgetSuccessPage />
     </Suspense>
   );

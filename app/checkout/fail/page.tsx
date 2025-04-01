@@ -3,6 +3,7 @@
 import "../../../styles/tosspayment.css";
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import LoadingPage from '../../loading/page';
 
 const FailPage = () => {
   const searchParams = useSearchParams(); // searchParams는 URLSearchParams 객체입니다.
@@ -23,7 +24,7 @@ const FailPage = () => {
 
 export default function Page() {
   return (
-    <Suspense fallback={<div>로딩 중...</div>}>
+    <Suspense fallback={<LoadingPage />}>
       <FailPage />
     </Suspense>
   );
