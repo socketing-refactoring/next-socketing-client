@@ -121,7 +121,7 @@ return (
             await widgets.requestPayment({
               orderId: "a3B4j8Qn8ZZ8g6NeGrMB0",
               orderName: `${event.title} ${currentTempOrder?.seats.length}석`,
-              successUrl: window.location.origin + "/checkout/success",
+              successUrl: window.location.origin + `/checkout/success?eventDatetimeId=${currentTempOrder.eventDatetimeId}&seats=${encodeURIComponent(JSON.stringify(currentTempOrder.seats))}`,
               failUrl: window.location.origin + "/checkout/fail",
               customerEmail: memberEmail,
               customerName: memberName,

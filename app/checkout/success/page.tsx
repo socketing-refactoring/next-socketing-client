@@ -2,7 +2,6 @@
 
 import "../../../styles/tosspayment.css";
 import { Suspense, useState, useEffect } from 'react';
-import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useOrderCreateMutation } from '../../../hooks/useOrderCreateMutation';
 import { toast } from 'react-toastify';
@@ -10,15 +9,13 @@ import { ApiError } from 'next/dist/server/api-utils';
 import { Order } from '../../../types/api/order';
 import { ApiResponse } from '../../../types/api/common';
 import { AxiosError } from 'axios';
-import useReservationStore from '../../../store/reservation/useReservationStore';
 import LoadingPage from '../../loading/page';
 
 const WidgetSuccessPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  // const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState(null);
 
-  const { currentTempOrder, eventDatetimeId } = useReservationStore();
   const { mutate, isLoading, isError, error } = useOrderCreateMutation();
 
   useEffect(() => {
@@ -26,8 +23,8 @@ const WidgetSuccessPage = () => {
       tossOrderId: searchParams.get("orderId"),
       amount: searchParams.get("amount"),
       paymentKey: searchParams.get("paymentKey"),
-      eventDatetimeId: eventDatetimeId,
-      seatIds: currentTempOrder?.seats.map(seat => seat.id)
+      eventDatetimeId: searchParams.get("eventDatetimeId"),
+      seatIds: JSON.parse(searchParams.get("seats")),
     };
 
     console.log(orderData);
@@ -37,7 +34,7 @@ const WidgetSuccessPage = () => {
 
       mutate(orderData, {
         onSuccess: (data: ApiResponse<Order>) => {
-          // setResponseData(data);
+          setResponseData(data);
           router.push("/order/confirmation");
         },
         onError: (error: AxiosError<ApiError>) => {
@@ -47,7 +44,7 @@ const WidgetSuccessPage = () => {
         },
       });
     }
-  }, [searchParams, mutate, router, eventDatetimeId, currentTempOrder?.seats]);
+  }, [searchParams, mutate, router]);
 
   return (
     <div>
@@ -89,12 +86,12 @@ const WidgetSuccessPage = () => {
           </Link>
         </div> */}
       </div>
-      {/* <div className="box_section" style={{ width: "600px", textAlign: "left" }}>
+      <div className="box_section" style={{ width: "600px", textAlign: "left" }}>
         <b>Response Data :</b>
         <div id="response" style={{ whiteSpace: "initial" }}>
           {responseData && <pre>{JSON.stringify(responseData, null, 4)}</pre>}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }
