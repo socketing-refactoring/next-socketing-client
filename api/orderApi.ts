@@ -27,7 +27,7 @@ apiClient.interceptors.request.use((config) => {
 export const createOrder = async (
   newOrder: NewOrder
 ): Promise<ApiResponse<Order>> => {
-  const response = await apiClient.get<ApiResponse<Order>>(
+  const response = await apiClient.post<ApiResponse<Order>>(
     ORDER_SERVER_URL,
     newOrder
   );
