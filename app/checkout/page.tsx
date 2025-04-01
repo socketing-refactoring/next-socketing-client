@@ -1,23 +1,35 @@
 "use client"
 
+import "../../styles/tosspayment.css";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
 import useReservationStore from '../../store/reservation/useReservationStore';
 import useMemberStore from '../../store/member/useMemberStore';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = crypto.randomUUID();
 
 const CheckoutPage = () => {
-const {currentTempOrder, event} = useReservationStore();
+const router = useRouter();
+const {currentTempOrder, event, eventDatetimeId} = useReservationStore();
 const {memberEmail, memberName} = useMemberStore();
 
 const [amount, setAmount] = useState({
   currency: "KRW",
-  value: currentTempOrder.seats.map(seat => seat.areaPrice).reduce((sum, price) => sum + price, 0),
+  value: currentTempOrder?.seats.map(seat => seat.areaPrice).reduce((sum, price) => sum + price, 0),
 });
 const [ready, setReady] = useState(false);
 const [widgets, setWidgets] = useState(null);
+
+useEffect(() => {
+  if (!currentTempOrder) {
+    toast.error("주문 데이터가 없습니다!");
+    router.replace("/");
+    return;
+  }
+}, [currentTempOrder, router]);
 
 useEffect(() => {
   async function fetchPaymentWidgets() {
@@ -89,7 +101,7 @@ return (
               disabled={!ready}
               onChange={(event) => {
                 // ------  주문서의 결제 금액이 변경되었을 경우 결제 금액 업데이트 ------
-                setAmount(event.target.checked ? amount - 5_000 : amount + 5_000);
+                // setAmount(event.target.checked ? amount - 5_000 : amount + 5_000);
               }}
             />
             <span>5,000원 쿠폰 적용</span>
@@ -108,7 +120,7 @@ return (
             // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
             await widgets.requestPayment({
               orderId: "a3B4j8Qn8ZZ8g6NeGrMB0",
-              orderName: `${event.title} ${currentTempOrder.seats.length}석`,
+              orderName: `${event.title} ${currentTempOrder?.seats.length}석`,
               successUrl: window.location.origin + "/checkout/success",
               failUrl: window.location.origin + "/checkout/fail",
               customerEmail: memberEmail,

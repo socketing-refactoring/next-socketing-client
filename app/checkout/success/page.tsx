@@ -3,45 +3,45 @@
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
+import { useOrderCreateMutation } from '../../../hooks/useOrderCreateMutation';
+import { toast } from 'react-toastify';
+import { ApiError } from 'next/dist/server/api-utils';
+import { Order } from '../../../types/api/order';
+import { ApiResponse } from '../../../types/api/common';
+import { AxiosError } from 'axios';
+import useReservationStore from '../../../store/reservation/useReservationStore';
 
-export function WidgetSuccessPage() {
+const WidgetSuccessPage = () => {
   const router = useRouter();
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
   const [responseData, setResponseData] = useState(null);
 
+  const {currentTempOrder, eventDatetimeId} = useReservationStore();
+  const { mutate, isLoading, isError, error } = useOrderCreateMutation();
+
   useEffect(() => {
-    async function confirm() {  
-      const requestData = {
-        orderId: searchParams.get("orderId"),
-        amount: searchParams.get("amount"),
-        paymentKey: searchParams.get("paymentKey"),
-      };
+    const orderData = {
+      tossOrderId: searchParams.get("orderId"),
+      amount: searchParams.get("amount"),
+      paymentKey: searchParams.get("paymentKey"),
+      eventDatetimeId: eventDatetimeId,
+      seatIds: currentTempOrder?.seats.map(seat => seat.id)
+    };
 
-      const response = await fetch("/api/confirm/widget", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    if (orderData.tossOrderId && orderData.amount && orderData.paymentKey && orderData.eventDatetimeId && orderData.seatIds) {
+      mutate(orderData, {
+        onSuccess: (data: ApiResponse<Order>) => {
+          setResponseData(data);
+          router.push("/order/confirmation");
         },
-        body: JSON.stringify(requestData),
+        onError: (error: AxiosError<ApiError>) => {
+          const errorMessage =  error?.response?.data?.message || "주문 과정에서 오류가 발생했습니다.";
+          toast.error(errorMessage);
+          router.push(`/checkout/fail?code=${error.code}&message=${error.message}`);
+        },
       });
-
-      const json = await response.json();
-
-      if (!response.ok) {
-        throw { message: json.message, code: json.code };
-      }
-
-      return json;
     }
-
-    confirm()
-      .then((data) => {
-        setResponseData(data);
-      })
-      .catch((error) => {
-        router.push(`/fail?code=${error.code}&message=${error.message}`);
-      });
-  }, [searchParams]);
+  }, [searchParams, mutate, router, eventDatetimeId, currentTempOrder?.seats]);
 
   return (
     <>
@@ -92,3 +92,5 @@ export function WidgetSuccessPage() {
     </>
   );
 }
+
+export default WidgetSuccessPage;

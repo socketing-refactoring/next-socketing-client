@@ -1,9 +1,38 @@
 import axios from "axios";
 import { API_SERVER_URL } from "../constants/server";
 import { ApiResponse } from "../types/api/common";
-import { Order } from "../types/api/order";
+import { NewOrder, Order } from "../types/api/order";
+import useMemberStore from '../store/member/useMemberStore';
+import { toast } from 'react-toastify';
 
 export const ORDER_SERVER_URL = API_SERVER_URL + "/api/v1/orders";
+
+const apiClient = axios.create({
+  baseURL: ORDER_SERVER_URL,
+  headers: { "Content-Type": "application/json" },
+});
+
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("authToken");
+  
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  } else {
+    toast.error("로그인이 필요합니다.");
+  }
+
+  return config;
+});
+
+export const createOrder = async (
+  newOrder: NewOrder
+): Promise<ApiResponse<Order>> => {
+  const response = await apiClient.get<ApiResponse<Order>>(
+    ORDER_SERVER_URL,
+    newOrder
+  );
+  return response.data;
+}
 
 export const fetchAllOrdersByMemberId = async (
   memberId: string

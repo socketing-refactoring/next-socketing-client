@@ -117,7 +117,7 @@ const OrderPage = () => {
                   <h3 className="text-xl font-bold mb-2">{event.title}</h3>
                   <p className="text-gray-600 text-sm mb-1">{event.place}</p>
                   <p className="text-gray-600 text-sm mb-1">
-                    {formatToKoreanDateAndTime(eventDatetimeId)}
+                    {formatToKoreanDateAndTime(currentTempOrder.eventDatetime)}
                   </p>
                   <p className="text-gray-600 text-sm">{event.artist}</p>
                 </div>

@@ -46,3 +46,7 @@ export interface flatReservation {
   reserverName: string;
   reserverEmail: string;
 }
+
+export interface NewOrder {
+
+}

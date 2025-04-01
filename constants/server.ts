@@ -1,1 +1,1 @@
-export const API_SERVER_URL = "http://socketing.jeein.xyz:8000";
+export const API_SERVER_URL = "https://api.socketing.jeein.xyz";

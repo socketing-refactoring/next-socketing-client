@@ -2,6 +2,9 @@ import { useRouter } from "next/navigation";
 import useReservationStore from "../../store/reservation/useReservationStore";
 import useMemberStore from "../../store/member/useMemberStore";
 import Button from "../common/Button";
+import { NewTempOrder } from '../../types/api/order';
+import { toast } from 'react-toastify';
+import { MAX_TICKET } from '../../constants/ticketing';
 
 const ReservationCreationBox = (eventData: DetailedEvent) => {
   const router = useRouter();
@@ -18,6 +21,14 @@ const ReservationCreationBox = (eventData: DetailedEvent) => {
   const { memberId } = useMemberStore();
 
   const handleReservationSubmit = () => {
+    if (selectedSeats.size < 1) {
+      toast.error("좌석을 1석 이상 선택해 주세요.");
+    }
+
+    if (selectedSeats.size >= MAX_TICKET) {
+      toast.error(`좌석을 ${MAX_TICKET} 석 이하로 선택해 주세요.`);
+    }
+    
     const newTempOrder: NewTempOrder = {
       eventDatetimeId: eventDatetimeId,
       eventDatetime: eventData.eventDatetimes.filter(
@@ -37,8 +48,6 @@ const ReservationCreationBox = (eventData: DetailedEvent) => {
 
     setCurrentTempOrder(newTempOrder);
     router.push(`/order`);
-
-    //toast.error("예매에 실패하셨습니다. 다시 시도해주세요.");
   };
 
   return (
@@ -47,6 +56,7 @@ const ReservationCreationBox = (eventData: DetailedEvent) => {
         onClick={() => void handleReservationSubmit()}
         className="p-4 w-full transition-colors flex items-center justify-between"
         variant="primary"
+        disabled={selectedSeats.size < 1 || selectedSeats.size >= MAX_TICKET}
       >
         <span>선택 좌석 예매하기</span>
         <div className="size-6 text-sm rounded-full flex items-center justify-center text-black bg-gray-300">

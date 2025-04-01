@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 const FailPage = () => {
   const [searchParams] = useSearchParams();
 
+  console.log(searchParams?.get("code")??"알 수 없음");
+
   return (
     <div className="result wrapper">
       <div className="box_section">
