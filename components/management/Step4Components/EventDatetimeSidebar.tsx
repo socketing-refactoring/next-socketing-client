@@ -14,7 +14,7 @@ const EventDatetimeSidebar = () => {
             key={index}
             className="w-full md:w-[150px] p-3 text-sm bg-white font-bold shadow rounded-lg text-center border"
           >
-            {formatToKoreanDateAndTime(datetime)}
+            {formatToKoreanDateAndTime(datetime.value)}
           </div>
         ))}
       </div>

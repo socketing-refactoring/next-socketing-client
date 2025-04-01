@@ -4,7 +4,7 @@ import {
   DetailedEvent,
   Event,
   NewEvent,
-  SeatReservation,
+  SeatWithAreaWithReservation
 } from "../types/api/event";
 import { ApiResponse } from "../types/api/common";
 
@@ -32,8 +32,8 @@ export const fetchOneEventDetail = async (
 export const fetchOneEventReservationDetails = async (
   eventId: string,
   eventDatetimeId: string
-): Promise<ApiResponse<SeatReservation[]>> => {
-  const { data } = await axios.get<ApiResponse<SeatReservation[]>>(
+): Promise<ApiResponse<SeatWithAreaWithReservation[]>> => {
+  const { data } = await axios.get<ApiResponse<SeatWithAreaWithReservation[]>>(
     `${EVENT_SERVER_URL}/${eventId}/dates/${eventDatetimeId}/seat-reservation/detail`
   );
   return data;

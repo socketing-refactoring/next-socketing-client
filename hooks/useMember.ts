@@ -3,7 +3,7 @@ import { fetchMemberInfo } from "../api/memberApi";
 import useMemberStore from "../store/member/useMemberStore";
 
 export const useMember = () => {
-  const { setMemberName } = useMemberStore();
+  const { setMemberName, setMemberEmail } = useMemberStore();
 
   const saveMemberInfo = async (memberId: string) => {
     try {
@@ -12,6 +12,7 @@ export const useMember = () => {
       if (name) {
         localStorage.setItem("memberName", name);
         setMemberName(name);
+        setMemberEmail(data?.data?.email);
         toast.success(`${name}님, 안녕하세요!`);
       } else {
         console.error("사용자 정보에 오류가 있습니다.");

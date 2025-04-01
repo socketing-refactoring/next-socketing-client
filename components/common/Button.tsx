@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes } from "react";
-import { ColorType } from "../types/api/common";
+
+export type ColorType = "primary" | "secondary" | "dark" | "white";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ColorType;

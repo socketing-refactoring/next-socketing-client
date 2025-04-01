@@ -5,6 +5,7 @@ import Button from "../common/Button";
 import { NewTempOrder } from '../../types/api/order';
 import { toast } from 'react-toastify';
 import { MAX_TICKET } from '../../constants/ticketing';
+import { DetailedEvent } from '../../types/api/event';
 
 const ReservationCreationBox = (eventData: DetailedEvent) => {
   const router = useRouter();

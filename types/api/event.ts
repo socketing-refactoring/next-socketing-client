@@ -16,7 +16,7 @@ export interface NewArea {
   price: number;
   label: string;
   areaMap: string;
-  seats: NewSeat[];
+  seats?: NewSeat[];
 }
 
 export interface NewSeat {

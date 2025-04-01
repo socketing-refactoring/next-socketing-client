@@ -1,8 +1,9 @@
 import React from "react";
+import { MenuLabelType } from '../../types/page/management';
 
 interface MobileNavProps {
-  activeTab: TabType;
-  onTabChange: (tab: TabType) => void;
+  activeTab: MenuLabelType;
+  onTabChange: (tab: MenuLabelType) => void;
   tabNames: {
     ongoing: string;
     past: string;

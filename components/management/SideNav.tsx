@@ -5,6 +5,7 @@ import {
   MANAGEMENT_CATEGORY,
   MANAGEMENT_MENU,
 } from "../../constants/managementMenu";
+import { MenuType } from '../../types/page/management';
 
 const SideNav = () => {
   const { activeMenu, setActiveMenu } = useManagementMenuStore();

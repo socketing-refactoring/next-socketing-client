@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react";
-import { Area, Seat } from "../../../types/api/event";
+import { NewArea, NewSeat } from "../../../types/api/event";
 import EventSeatRegisterConfirmSeatObj from "./EventSeatRegisterConfirmSeatObj";
 
 interface EventSeatRegisterConfirmSvgWrapperProps {
   svg: string;
-  seats: Seat[];
-  areas: Area[];
-}
-
-interface ParsedSvgData {
-  svgString: string;
+  seats: NewSeat[];
+  areas: NewArea[];
 }
 
 const EventSeatRegisterConfirmSvgWrapper = ({

@@ -1,8 +1,8 @@
 "use client"
 
+import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from "react";
 import { useOrderCreateMutation } from '../../../hooks/useOrderCreateMutation';
 import { toast } from 'react-toastify';
 import { ApiError } from 'next/dist/server/api-utils';
@@ -16,7 +16,7 @@ const WidgetSuccessPage = () => {
   const searchParams = useSearchParams();
   const [responseData, setResponseData] = useState(null);
 
-  const {currentTempOrder, eventDatetimeId} = useReservationStore();
+  const { currentTempOrder, eventDatetimeId } = useReservationStore();
   const { mutate, isLoading, isError, error } = useOrderCreateMutation();
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const WidgetSuccessPage = () => {
   }, [searchParams, mutate, router, eventDatetimeId, currentTempOrder?.seats]);
 
   return (
-    <>
+    <div>
       <div className="box_section" style={{ width: "600px" }}>
         <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
         <h2>결제를 완료했어요</h2>
@@ -89,8 +89,14 @@ const WidgetSuccessPage = () => {
           {responseData && <pre>{JSON.stringify(responseData, null, 4)}</pre>}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-export default WidgetSuccessPage;
+export default function Page() {
+  return (
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <WidgetSuccessPage />
+    </Suspense>
+  );
+}
