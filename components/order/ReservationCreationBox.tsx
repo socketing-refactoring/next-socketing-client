@@ -24,10 +24,12 @@ const ReservationCreationBox = (eventData: DetailedEvent) => {
   const handleReservationSubmit = () => {
     if (selectedSeats.size < 1) {
       toast.error("좌석을 1석 이상 선택해 주세요.");
+      return;
     }
 
-    if (selectedSeats.size >= MAX_TICKET) {
+    if (selectedSeats.size > MAX_TICKET) {
       toast.error(`좌석을 ${MAX_TICKET} 석 이하로 선택해 주세요.`);
+      return;
     }
     
     const newTempOrder: NewTempOrder = {
