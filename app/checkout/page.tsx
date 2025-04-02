@@ -119,9 +119,9 @@ return (
             // 결제를 요청하기 전에 orderId, amount를 서버에 저장하세요.
             // 결제 과정에서 악의적으로 결제 금액이 바뀌는 것을 확인하는 용도입니다.
             await widgets.requestPayment({
-              orderId: "a3B4j8Qn8ZZ8g6NeGrMB0",
+              orderId: crypto.randomUUID(),
               orderName: `${event.title} ${currentTempOrder?.seats.length}석`,
-              successUrl: window.location.origin + `/checkout/success?eventDatetimeId=${currentTempOrder.eventDatetimeId}&seats=${encodeURIComponent(JSON.stringify(currentTempOrder.seats.map(seat => seat.id)))}`,
+              successUrl: window.location.origin + `/checkout/success?eventId=${event.id}&eventDatetimeId=${currentTempOrder.eventDatetimeId}&seats=${encodeURIComponent(JSON.stringify(currentTempOrder.seats.map(seat => seat.id)))}`,
               failUrl: window.location.origin + "/checkout/fail",
               customerEmail: memberEmail,
               customerName: memberName,

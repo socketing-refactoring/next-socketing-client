@@ -7,6 +7,15 @@ export interface NewTempOrder {
   seats: SeatWithArea[];
 }
 
+export interface NewOrder {
+  tossOrderId: string;
+  amount: string;
+  paymentKey: string;
+  eventDatetimeId: string;
+  eventId: string;
+  seatIds: string[];
+}
+
 export interface Order {
   id: string;
   orderMember: OrderMember;
@@ -45,8 +54,4 @@ export interface flatReservation {
   reserverId: string;
   reserverName: string;
   reserverEmail: string;
-}
-
-export interface NewOrder {
-
 }

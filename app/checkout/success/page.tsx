@@ -24,6 +24,7 @@ const WidgetSuccessPage = () => {
       amount: searchParams.get("amount"),
       paymentKey: searchParams.get("paymentKey"),
       eventDatetimeId: searchParams.get("eventDatetimeId"),
+      eventId: searchParams.get("eventId"),
       seatIds: JSON.parse(searchParams.get("seats")),
     };
 
