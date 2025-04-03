@@ -69,7 +69,7 @@ const MyPage = () => {
               className="p-4 px-6 border border-gray-300 rounded-lg shadow-sm flex flex-col md:flex-row md:items-center space-x-4"
             >
               <div className="flex justify-around items-start m-2">
-                <Image
+                <img
                   src={`${EVENT_SERVER_STATIC_PATH}/${order.orderEvent.thumbnail}`}
                   alt={order.orderEvent.title}
                   className="md:w-16 h-24 rounded-lg object-cover"
