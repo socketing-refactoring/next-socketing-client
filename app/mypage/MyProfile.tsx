@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import useMemberStore from "../../store/member/useMemberStore";
 import { fetchMemberInfo, updateUserNickname } from "../../api/memberApi";
 import Button from "../../components/common/Button";
+import { toast } from 'react-toastify';
 
 const MyProfile = () => {
   const [profileData, setProfileData] = useState({
@@ -45,9 +46,9 @@ const MyProfile = () => {
         profileData.nickname
       );
       if (!updatedData) throw new Error("No update");
-      alert(`새로운 닉네임 : ${updatedData.data?.nickname}`);
+      toast.success(`새로운 닉네임 : ${updatedData.data?.nickname}`);
     } catch (error) {
-      alert("닉네임 업데이트 중 문제가 발생했습니다.");
+      toast.error("닉네임 업데이트 중 문제가 발생했습니다.");
       console.error(error);
     }
   };

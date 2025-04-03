@@ -87,12 +87,12 @@ const WidgetSuccessPage = () => {
           </Link>
         </div> */}
       </div>
-      <div className="box_section" style={{ width: "600px", textAlign: "left" }}>
+      {/* <div className="box_section" style={{ width: "600px", textAlign: "left" }}>
         <b>Response Data :</b>
         <div id="response" style={{ whiteSpace: "initial" }}>
           {responseData && <pre>{JSON.stringify(responseData, null, 4)}</pre>}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

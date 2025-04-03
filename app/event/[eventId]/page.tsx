@@ -14,9 +14,16 @@ import useEvents from "../../../hooks/useEvents";
 import { useParams } from "next/navigation";
 
 const EventDetailPage = () => {
-  const { setEvent, setFilteredEvent } = useEventDetailStore();
+  const { setEvent, setFilteredEvent, setSelectedDates } = useEventDetailStore();
   const { eventId } = useParams();
   const { data, isLoading, isError } = useEvents(eventId as string);
+
+  useEffect(() => {
+    setSelectedDates([]);
+    setFilteredEvent(null);
+    setEvent(null);
+  }, [setSelectedDates, setFilteredEvent, setEvent]);
+
 
   useEffect(() => {
     if (data) {
