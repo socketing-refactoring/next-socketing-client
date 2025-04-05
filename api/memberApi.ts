@@ -27,7 +27,7 @@ export const updateMemberNickname = async (
 
   const response = await axios.patch<ApiResponse<Member>>(
     `${MEMBER_SERVER_URL}/${memberId}/nickname`,
-    newNickname,
+    { nickname: newNickname },
     {
       headers: {
         Authorization: `Bearer ${token}`,
