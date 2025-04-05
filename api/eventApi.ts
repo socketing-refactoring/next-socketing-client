@@ -4,7 +4,7 @@ import {
   DetailedEvent,
   Event,
   NewEvent,
-  SeatWithAreaWithReservation
+  SeatWithAreaWithReservation,
 } from "../types/api/event";
 import { ApiResponse } from "../types/api/common";
 
@@ -44,29 +44,33 @@ export const fetchAllEvents = async (): Promise<ApiResponse<Event[]>> => {
   return data;
 };
 
-export const createNewEvent = async ({
-  title,
-  thumbnail,
-  place,
-  artist,
-  eventDatetimes,
-  totalMap,
-  ticketingOpenTime,
-  areas,
-}: NewEvent): Promise<ApiResponse<NewEvent>> => {
-  const { data } = await axios.post<ApiResponse<NewEvent>>(
-    `${EVENT_SERVER_URL}`,
-    {
-      title,
-      thumbnail,
-      place,
-      artist,
-      eventDatetimes,
-      totalMap,
-      ticketingOpenTime,
-      areas,
-    }
-  );
+export const createEvent = async (data: NewEvent) => {
+  const formData = new FormData();
 
-  return data;
+  // Step 1 Data
+  formData.append("title", data.title || "");
+  formData.append("description", data.description || "");
+  formData.append("place", data.place || "");
+  formData.append("artist", data.artist || "");
+  if (data.thumbnail) {
+    formData.append("thumbnail", data.thumbnail);
+  }
+
+  // Step 2 Data
+  formData.append("eventOpenTime", data.eventOpenTime || "");
+  formData.append("ticketingOpenTime", data.ticketingOpenTime || "");
+  formData.append("eventDatetimes", JSON.stringify(data.eventDatetimes || []));
+
+  // Step 3 Data
+  formData.append("totalMap", data.totalMap || "");
+  formData.append("areas", JSON.stringify(data.areas || []));
+
+  // API 호출
+  const response = await axios.post(EVENT_SERVER_URL, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response.data;
 };

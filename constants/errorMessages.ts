@@ -30,6 +30,7 @@ export const loginErrorMessages = {
 export const fetchErrorMessages = {
   isLoading: "데이터를 불러오는 중...",
   general: "오류가 발생했습니다.",
+  noMemberData: "오류 발생: 회원 정보를 불러올 수 없습니다.",
   noEventData: "오류 발생: 공연 정보를 불러올 수 없습니다.",
   noSeatsData: "오류 발생: 좌석 정보를 불러올 수 없습니다.",
   noSvgData: "오류 발생: 좌석 배치도를 불러올 수 없습니다.",

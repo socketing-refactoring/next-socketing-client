@@ -1,7 +1,7 @@
-import { EVENT_SERVER_STATIC_PATH } from '../../api/eventApi';
-import { fetchErrorMessages } from '../../constants/errorMessages';
-import { Order } from '../../types/api/order';
-import { formatToKoreanDateAndTime } from '../../utils/dateUtils';
+import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
+import { fetchErrorMessages } from "../../constants/errorMessages";
+import { Order } from "../../types/api/order";
+import { formatToKoreanDateAndTime } from "../../utils/event/dateUtils";
 
 interface ReservationConfirmProps {
   data: Order;

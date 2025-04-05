@@ -1,4 +1,4 @@
-import { SeatStatus } from "../types/api/event";
+import { SeatStatus } from "../../types/api/event";
 
 export const getStatusColor = (status: SeatStatus) => {
   switch (status) {

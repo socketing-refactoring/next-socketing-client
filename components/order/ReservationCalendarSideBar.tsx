@@ -1,5 +1,5 @@
 import React from "react";
-import { formatToKoreanDateAndTime } from "../../utils/dateUtils";
+import { formatToKoreanDateAndTime } from "../../utils/event/dateUtils";
 import { EventDatetime } from "../../types/api/event";
 
 interface DateProps {

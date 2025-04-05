@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Step2Form } from "../../../../types/page/management";
 import useManagementEventStepStore from "../../../../store/management/useManagementEventStepStore";
-import { getCurrentDateTime } from "../../../../utils/dateUtils";
+import { getCurrentDateTime } from "../../../../utils/event/dateUtils";
 import Button from "../../../../components/common/Button";
 
 const Step2 = ({

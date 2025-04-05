@@ -1,8 +1,22 @@
 .p {
   padding: 0;
   margin: 0;
-  font-family: Toss Product Sans, -apple-system, BlinkMacSystemFont, Bazier Square, Noto Sans KR, Segoe UI, Apple SD Gothic Neo, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family:
+    Toss Product Sans,
+    -apple-system,
+    BlinkMacSystemFont,
+    Bazier Square,
+    Noto Sans KR,
+    Segoe UI,
+    Apple SD Gothic Neo,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
   color: #4e5968;
   word-break: keep-all;
   word-wrap: break-word;
@@ -20,7 +34,9 @@
 .box_section {
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 10px 20px rgb(0 0 0 / 1%), 0 6px 6px rgb(0 0 0 / 6%);
+  box-shadow:
+    0 10px 20px rgb(0 0 0 / 1%),
+    0 6px 6px rgb(0 0 0 / 6%);
   padding: 50px 50px 50px 50px;
   margin-top: 30px;
   margin-right: auto;
@@ -86,8 +102,23 @@
 
 body,
 html {
-  font-family: Toss Product Sans, Tossface, -apple-system, BlinkMacSystemFont, Bazier Square, Noto Sans KR, Segoe UI, Apple SD Gothic Neo, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family:
+    Toss Product Sans,
+    Tossface,
+    -apple-system,
+    BlinkMacSystemFont,
+    Bazier Square,
+    Noto Sans KR,
+    Segoe UI,
+    Apple SD Gothic Neo,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   word-break: keep-all;
@@ -113,7 +144,9 @@ html {
   cursor: pointer;
   border: 0 solid transparent;
   user-select: none;
-  transition: background 0.2s ease, color 0.1s ease;
+  transition:
+    background 0.2s ease,
+    color 0.1s ease;
   text-decoration: none;
   border-radius: 7px;
   padding: 11px 16px;
@@ -134,8 +167,22 @@ input:disabled {
 button,
 input,
 textarea {
-  font-family: Toss Product Sans, -apple-system, BlinkMacSystemFont, Bazier Square, Noto Sans KR, Segoe UI, Apple SD Gothic Neo, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family:
+    Toss Product Sans,
+    -apple-system,
+    BlinkMacSystemFont,
+    Bazier Square,
+    Noto Sans KR,
+    Segoe UI,
+    Apple SD Gothic Neo,
+    Roboto,
+    Helvetica Neue,
+    Arial,
+    sans-serif,
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol,
+    Noto Color Emoji;
 }
 
 .color--grey800 {
@@ -396,7 +443,9 @@ textarea {
   border: 2px solid var(--grey300);
   background-color: #fff;
   background-color: var(--white);
-  transition: border-color 0.1s ease, background-color 0.1s ease;
+  transition:
+    border-color 0.1s ease,
+    background-color 0.1s ease;
 }
 
 .checkable__input:after {

@@ -1,6 +1,6 @@
 import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
 import { useEventDetailStore } from "../../store/event/useEventDetailStore";
-import { formatToKoreanDateAndTime } from "../../utils/dateUtils";
+import { formatToKoreanDateAndTime } from "../../utils/event/dateUtils";
 
 const EventDetailAboutTab = () => {
   const { event } = useEventDetailStore();

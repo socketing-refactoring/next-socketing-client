@@ -10,7 +10,7 @@ export type ProgressStep = {
 };
 
 const ProgressNav = () => {
-  const { steps, currentStep, setCurrentStep } = useManagementEventStepStore();
+  const { steps, currentStep } = useManagementEventStepStore();
 
   const widthBetweenSteps = Math.floor(20 / 3);
 

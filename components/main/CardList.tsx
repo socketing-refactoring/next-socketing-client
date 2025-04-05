@@ -1,4 +1,4 @@
-import { formatToKoreanDateAndTime } from "../../utils/dateUtils";
+import { formatToKoreanDateAndTime } from "../../utils/event/dateUtils";
 import { Event } from "../../types/api/event";
 import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
 import { useRouter } from "next/navigation";

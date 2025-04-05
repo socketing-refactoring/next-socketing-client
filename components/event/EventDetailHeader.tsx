@@ -1,9 +1,7 @@
-import { useRouter } from "next/navigation";
 import { useEventDetailStore } from "../../store/event/useEventDetailStore";
 import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
 
 const EventDetailHeader = () => {
-  const router = useRouter();
   const { event } = useEventDetailStore();
 
   if (!event) {

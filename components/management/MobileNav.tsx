@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuLabelType } from '../../types/page/management';
+import { MenuLabelType } from "../../types/page/management";
 
 interface MobileNavProps {
   activeTab: MenuLabelType;
@@ -22,7 +22,6 @@ export function MobileNav({
   activeTab,
   onTabChange,
   tabNames,
-  menuNames,
 }: MobileNavProps) {
   return (
     <div className="flex border-b mb-6">

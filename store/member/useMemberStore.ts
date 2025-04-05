@@ -1,30 +1,20 @@
 import create from "zustand";
+import { Member } from "../../types/api/member";
 
-interface MemberStore {
-  memberId: string | null;
-  setMemberId: (memberId: string | null) => void;
-  memberName: string | null;
-  setMemberName: (memberName: string) => void;
-  memberNickname: string | null;
-  setMemberNickname: (memberNickname: string) => void;
-  memberEmail: string | null;
-  setMemberEmail: (memberEmail: string) => void;
+interface MemberState {
+  member: Member | null;
+  setMember: (member: Member) => void;
+  resetMember: () => void;
   isLoginModalOpen: boolean;
   setIsLoginModalOpen: (isOpen: boolean) => void;
   isLogin: boolean;
   setIsLogin: (isLogin: boolean) => void;
 }
 
-const useMemberStore = create<MemberStore>((set) => ({
-  memberId: null,
-  setMemberId: (memberId) => set({ memberId: memberId }),
-  memberName: null,
-  setMemberName: (memberName) => set({ memberName: memberName }),
-  memberNickname: null,
-  setMemberNickname: (memberNickname) =>
-    set({ memberNickname: memberNickname }),
-  memberEmail: null,
-  setMemberEmail: (memberEmail) => set({memberEmail: memberEmail}),
+const useMemberStore = create<MemberState>((set) => ({
+  member: null,
+  setMember: (member) => set({ member }),
+  resetMember: () => set({ member: null }),
   isLoginModalOpen: false,
   setIsLoginModalOpen: (isOpen) => set({ isLoginModalOpen: isOpen }),
   isLogin: false,

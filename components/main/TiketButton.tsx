@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useCurrentTime } from "../../hooks/useCurrentTime";
-import { getTimeLeft } from "../../utils/countdownTimer";
+import { getTimeLeft } from "../../utils/event/countdownTimer";
 import { Event } from "../../types/api/event";
 import dayjs from "dayjs";
 

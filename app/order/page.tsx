@@ -6,26 +6,19 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ErrorPage from "../error/page";
 import Button from "../../components/common/Button";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { formatToKoreanDateAndTime } from "../../utils/dateUtils";
-import { EVENT_SERVER_STATIC_PATH } from '../../api/eventApi';
+import { formatToKoreanDateAndTime } from "../../utils/event/dateUtils";
+import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
+import { fetchErrorMessages } from "../../constants/errorMessages";
 
 const OrderPage = () => {
   const router = useRouter();
-  const { memberId, memberName } = useMemberStore();
-  const { currentTempOrder, selectedSeats, event, eventDatetimeId } =
+  const { member } = useMemberStore();
+  const { currentTempOrder, selectedSeats, event } =
     useReservationStore();
 
-  const [isAgreed, setIsAgreed] = useState(false); // 구매 동의 체크박스 상태
-  const [paymentMethod, setPaymentMethod] = useState<string | null>(null); // 선택된 결제 방법
-
+  const [isAgreed, setIsAgreed] = useState(false);
   const seats = Array.from(selectedSeats);
-
-  // if (!currentTempOrder) {
-  //   toast.error("주문 데이터가 없습니다!");
-  //   return;
-  // }
 
   useEffect(() => {
     if (!currentTempOrder) {
@@ -42,57 +35,12 @@ const OrderPage = () => {
       toast.error("구매조건 확인 및 결제 진행에 동의해주세요!");
       return;
     }
-    // if (userPoints === -1) {
-    //   toast.error("먼저 보유하신 금액를 조회해주세요!");
-    //   return;
-    // }
-    // if (!paymentMethod) {
-    //   toast.error("결제 방법을 선택해주세요!");
-    //   return;
-    // }
 
-    router.push("/checkout")
-
-    // if (userPoints < totalAmount) {
-    //   toast.error("잔액 부족!");
-    //   return;
-    // }
-    // const seatIds = orderData.seats.map((seat) => seat.id);
-
-    // const paymentData: NewPayment = {
-    //   orderId: orderData.id,
-    //   paymentMethod: paymentMethod as PaymentMethod,
-    //   totalAmount,
-    //   eventDateId: eventData.eventDates[0].id,
-    //   seatIds,
-    // };
-
-    // try {
-    //   if (!socket || !userId) return;
-
-    //   //const response = await createNewPayment(paymentData);
-    //   requestOrder(userId, orderData.id);
-
-    //   // if (response.code === 0) {
-    //   //   toast.success("결제가 진행됩니다!");
-
-    //   await queryClient.invalidateQueries({
-    //     queryKey: [`my-orders-${userId}`],
-    //   }); // orders 쿼리 무효화
-    //   socket.on("orderApproved", (response: ApprovedOrderResponse) => {
-    //     void navigate(`/reservation-confirmation`, {
-    //       state: { paymentData: response.data },
-    //     });
-    //   });
-    // } catch (error) {
-    //   console.error("결제 요청 실패:", error);
-    //   toast.error("결제 처리 중 오류가 발생했습니다.");
-    // }
-    
+    router.push("/checkout");
   };
 
-  if (!memberId) return <ErrorPage />;
-
+  if (!member)
+    return <ErrorPage errorMessage={fetchErrorMessages.noMemberData} />;
   if (!currentTempOrder)
     return <ErrorPage errorMessage={"예매 정보가 없습니다"} />;
 
@@ -143,10 +91,8 @@ const OrderPage = () => {
               <h2 className="text-lg font-bold mb-4">주문자 정보</h2>
               <div className="flex justify-between items-center">
                 <div className="space-y-1">
-                  {/* <p className="text-sm text-gray-600">
-                      {order.user.nickname}
-                    </p> */}
-                  <p className="text-sm text-gray-600">{memberName}</p>
+                  <p className="text-sm text-gray-600">{member.name}</p>
+                  <p className="text-sm text-gray-600">{member.nickname}</p>
                 </div>
               </div>
             </div>

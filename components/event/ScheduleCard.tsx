@@ -1,10 +1,9 @@
 import { useRouter } from "next/navigation";
-import { useCurrentTime } from "../../hooks/useCurrentTime";
 import { toast } from "react-toastify";
 import {
   formatDateToKoreanDate,
   formatDateToKoreanTime,
-} from "../../utils/dateUtils";
+} from "../../utils/event/dateUtils";
 import Button from "../common/Button";
 import useMemberStore from "../../store/member/useMemberStore";
 import { useTicketingTime } from "../../hooks/useTicketingtime";
@@ -23,7 +22,7 @@ const ScheduleCard = ({
   ticketingStartTime,
 }: ScheduleCardProps) => {
   const router = useRouter();
-  const { memberId } = useMemberStore();
+  const { member } = useMemberStore();
   const { isNowTicketingStarted } = useTicketingTime(ticketingStartTime);
 
   let isTicketingStarted = false;
@@ -39,8 +38,7 @@ const ScheduleCard = ({
   const isDisabled = !isTicketingStarted;
 
   const checkLogin = () => {
-    // const memberId = localStorage.getItem("memberId");
-    if (!memberId) {
+    if (!member.id) {
       return false;
     }
     return true;
@@ -59,17 +57,6 @@ const ScheduleCard = ({
     router.push(`/reservation/${eventId}/${eventDateId}`);
   };
 
-  // const handleAdjacentReservationClick = () => {
-  //   if (!checkLogin()) return;
-
-  //   if (!isTicketingStarted) {
-  //     toast.error("티켓팅이 아직 시작되지 않았습니다.");
-  //     return;
-  //   }
-
-  //   router.push(`/waiting/${eventId}/${eventDateId}`);
-  // };
-
   return (
     <>
       {/* lg */}
@@ -86,13 +73,6 @@ const ScheduleCard = ({
           </div>
         </div>
         <div className="flex gap-2">
-          {/* <Button
-            variant="dark"
-            onClick={handleAdjacentReservationClick}
-            className={`text-sm ${isDisabled ? "opacity-30" : ""}`}
-          >
-            {isDisabled ? "함께 예매 준비 중" : "함께 예매하기"}
-          </Button> */}
           <Button
             variant="primary"
             onClick={handleDefaultReservationClick}
@@ -117,14 +97,6 @@ const ScheduleCard = ({
           </div>
         </div>
         <div className="flex gap-1 md:gap-2">
-          {/* <Button
-            variant="dark"
-            size="sm"
-            onClick={handleAdjacentReservationClick}
-            className={`${isDisabled ? "opacity-30" : ""}`}
-          >
-            {isDisabled ? "함께 준비" : "함께 예매"}
-          </Button> */}
           <Button
             variant="primary"
             size="sm"

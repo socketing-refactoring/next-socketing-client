@@ -1,6 +1,6 @@
 import React from "react";
 import useManagementEventStepStore from "../../../store/management/useManagementEventStepStore";
-import { formatToKoreanDateAndTime } from "../../../utils/dateUtils";
+import { formatToKoreanDateAndTime } from "../../../utils/event/dateUtils";
 
 const EventDatetimeSidebar = () => {
   const { step2Data } = useManagementEventStepStore();

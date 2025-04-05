@@ -45,8 +45,6 @@ const ReservationPage = () => {
   } = useEventDetail(urlEventId as string);
   const {
     data: reservationResponse,
-    isLoading: reservationLoading,
-    isError: reservationError,
   } = useEventSeatReservation(urlEventId, urlEventDatetimeId);
   const eventData = eventResponse?.data;
   const reservationData = reservationResponse?.data;
@@ -117,7 +115,7 @@ const ReservationPage = () => {
       topContent={<ReservationUpperEvent {...eventData} />}
       centerContent={<ReservationSeatContainer {...eventData} />}
       rightTopContent={<ReservationMinimap />}
-      rightMiddleContent={<ReservationSeatInfo {...eventData} />}
+      rightMiddleContent={<ReservationSeatInfo />}
       rightBottomContent={<ReservationCreationBox {...eventData} />}
     />
   );

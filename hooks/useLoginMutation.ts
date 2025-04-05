@@ -1,40 +1,44 @@
 import { toast } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import { useMutation } from "react-query";
-import { AuthTokenData, LoginData } from "../types/api/member";
+import { AuthTokenData } from "../types/api/member";
 import { ApiErrorResponse, ApiResponse } from "../types/api/common";
-import useMemberStore from "../store/member/useMemberStore";
-import { jwtDecode } from "jwt-decode";
-import { useMember } from "./useMember";
-import { useRouter } from "next/navigation";
-import { AUTH_SERVER_URL } from "../api/authApi";
+import { login } from "../api/authApi";
+import { decodeMemberIdFromToken } from "../utils/auth/token";
+import { fetchMemberInfo } from "../api/memberApi";
+import { useAuth } from "./useAuth";
 
 export const useLoginMutation = () => {
-  const router = useRouter();
-  const { saveMemberInfo } = useMember();
-  const { setMemberId, setIsLogin } = useMemberStore();
+  const { initializeAuth, resetAuth } = useAuth();
 
   return useMutation({
-    mutationFn: async (data: LoginData) => {
-      const response = await axios.post(`${AUTH_SERVER_URL}/login`, data);
-      return response.data;
-    },
-    onSuccess: (data: ApiResponse<AuthTokenData>) => {
-      setIsLogin(true);
-      toast.success("로그인되었습니다.");
-
+    mutationFn: login,
+    onSuccess: async (data: ApiResponse<AuthTokenData>) => {
       const token = data?.data?.accessToken;
-      if (token) {
-        localStorage.setItem("authToken", token);
+      if (!token) {
+        toast.error("토큰 정보가 없습니다.");
+        resetAuth();
+        return;
+      }
 
-        const decodedToken = jwtDecode<{ sub: string }>(token);
-        const decodedUserId = decodedToken.sub;
-        if (decodedUserId) {
-          localStorage.setItem("memberId", decodedUserId);
-          setMemberId(decodedUserId);
-          saveMemberInfo(decodedUserId);
+      const memberId = decodeMemberIdFromToken(token);
+      try {
+        const response = await fetchMemberInfo(memberId);
+        const member = response?.data;
+        initializeAuth(token, member);
+        toast.success("로그인되었습니다.");
+        toast.success(`${member.name} 님, 안녕하세요.`);
+      } catch (error) {
+        resetAuth();
+        if (axios.isAxiosError(error)) {
+          const errorMessage =
+            error.response?.data?.message ||
+            "사용자 정보를 불러오는 데 실패했습니다.";
+          console.error("사용자 정보 불러오기 실패:", errorMessage);
+          toast.error(errorMessage);
         } else {
-          toast.error("토큰 오류가 발생했습니다.");
+          console.error("예상치 못한 오류 발생:", error);
+          toast.error("알 수 없는 오류가 발생했습니다.");
         }
       }
     },

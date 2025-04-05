@@ -1,25 +1,16 @@
 import { useRouter } from "next/navigation";
 import useReservationStore from "../../store/reservation/useReservationStore";
-import useMemberStore from "../../store/member/useMemberStore";
 import Button from "../common/Button";
-import { NewTempOrder } from '../../types/api/order';
-import { toast } from 'react-toastify';
-import { MAX_TICKET } from '../../constants/ticketing';
-import { DetailedEvent } from '../../types/api/event';
+import { NewTempOrder } from "../../types/api/order";
+import { toast } from "react-toastify";
+import { MAX_TICKET } from "../../constants/ticketing";
+import { DetailedEvent } from "../../types/api/event";
 
 const ReservationCreationBox = (eventData: DetailedEvent) => {
   const router = useRouter();
 
-  const {
-    selectedSeats,
-    areasMap,
-    currentAreaId,
-    eventId,
-    eventDatetimeId,
-    setCurrentTempOrder,
-  } = useReservationStore();
-
-  const { memberId } = useMemberStore();
+  const { selectedSeats, eventDatetimeId, setCurrentTempOrder } =
+    useReservationStore();
 
   const handleReservationSubmit = () => {
     if (selectedSeats.size < 1) {
@@ -31,7 +22,7 @@ const ReservationCreationBox = (eventData: DetailedEvent) => {
       toast.error(`좌석을 ${MAX_TICKET} 석 이하로 선택해 주세요.`);
       return;
     }
-    
+
     const newTempOrder: NewTempOrder = {
       eventDatetimeId: eventDatetimeId,
       eventDatetime: eventData.eventDatetimes.filter(
@@ -40,10 +31,6 @@ const ReservationCreationBox = (eventData: DetailedEvent) => {
       eventTitle: eventData.title,
       seats: Array.from(selectedSeats).map(
         ({
-          reservationId,
-          reserverId,
-          reserverName,
-          reserverEmail,
           ...seatWithoutReservation
         }) => seatWithoutReservation
       ),

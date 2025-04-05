@@ -2,8 +2,7 @@ import axios from "axios";
 import { API_SERVER_URL } from "../constants/server";
 import { ApiResponse } from "../types/api/common";
 import { NewOrder, Order } from "../types/api/order";
-import useMemberStore from '../store/member/useMemberStore';
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export const ORDER_SERVER_URL = API_SERVER_URL + "/api/v1/orders";
 
@@ -14,7 +13,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("authToken");
-  
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   } else {
@@ -32,7 +31,7 @@ export const createOrder = async (
     newOrder
   );
   return response.data;
-}
+};
 
 export const fetchAllOrdersByMemberId = async (
   memberId: string

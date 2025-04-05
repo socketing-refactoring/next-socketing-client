@@ -1,6 +1,6 @@
 import useReservationStore from "../../store/reservation/useReservationStore";
-import { DetailedEvent } from "../../types/api/event";
-const ReservationSeatInfo = (eventData: DetailedEvent) => {
+
+const ReservationSeatInfo = () => {
   const { selectedSeats } = useReservationStore();
 
   return (

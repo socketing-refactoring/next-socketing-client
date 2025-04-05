@@ -15,28 +15,25 @@ export const fetchMemberInfo = async (
   return response.data;
 };
 
-export const updateUserNickname = async (
+export const updateMemberNickname = async (
   memberId: string,
   newNickname: string
 ): Promise<ApiResponse<Member>> => {
-  try {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      throw new Error("인증 토큰이 없습니다. 로그인해 주세요.");
-    }
-    const response = await axios.patch<ApiResponse<Member>>(
-      `${MEMBER_SERVER_URL}/${memberId}/nickname`,
-      newNickname,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    toast.error("닉네임 변경에 실패했습니다.");
-    console.error("Failed to update nickname:", error);
-    throw error;
+  const token = localStorage.getItem("authToken");
+  if (!token) {
+    toast.error("인증 토큰이 없습니다.");
+    return;
   }
+
+  const response = await axios.patch<ApiResponse<Member>>(
+    `${MEMBER_SERVER_URL}/${memberId}/nickname`,
+    newNickname,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
 };

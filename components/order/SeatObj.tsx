@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import useReservationStore from "../../store/reservation/useReservationStore";
-import { SeatStatus, SeatWithAreaWithReservation } from "../../types/api/event";
-import { getHoverClass, getStatusColor } from "../../utils/getSeatInfo";
+import { SeatWithAreaWithReservation } from "../../types/api/event";
+import { getHoverClass, getStatusColor } from "../../utils/event/getSeatInfo";
 import React, { useMemo } from "react";
 import { MAX_TICKET } from "../../constants/ticketing";
 

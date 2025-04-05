@@ -1,7 +1,6 @@
-import Image from "next/image";
 import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
 import { DetailedEvent } from "../../types/api/event";
-import { formatToKoreanDateAndTime } from "../../utils/dateUtils";
+import { formatToKoreanDateAndTime } from "../../utils/event/dateUtils";
 
 const ReservationUpperEvent = (eventData: DetailedEvent) => {
   return (

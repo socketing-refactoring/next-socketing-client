@@ -11,7 +11,7 @@ import { Event } from "../types/api/event";
 import dayjs from "dayjs";
 import MainBanner from "../components/main/MainBanner";
 import { useRouter } from "next/navigation";
-import { formatToKoreanDateAndTime } from "../utils/dateUtils";
+import { formatToKoreanDateAndTime } from "../utils/event/dateUtils";
 import TicketButton from "../components/main/TiketButton";
 import CardList from "../components/main/CardList";
 import Image from "next/image";

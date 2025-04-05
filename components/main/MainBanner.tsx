@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import { useCurrentTime } from "../../hooks/useCurrentTime";
 import { Event } from "../../types/api/event";
-import { getTimeLeft } from "../../utils/countdownTimer";
+import { getTimeLeft } from "../../utils/event/countdownTimer";
 import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
-import { formatToKoreanDateAndTime } from "../../utils/dateUtils";
+import { formatToKoreanDateAndTime } from "../../utils/event/dateUtils";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 

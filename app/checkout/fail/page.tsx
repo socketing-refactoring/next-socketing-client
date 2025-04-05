@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import "../../../styles/tosspayment.css";
-import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import LoadingPage from '../../loading/page';
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import LoadingPage from "../../loading/page";
 
 const FailPage = () => {
   const searchParams = useSearchParams(); // searchParams는 URLSearchParams 객체입니다.
@@ -20,7 +20,7 @@ const FailPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default function Page() {
   return (

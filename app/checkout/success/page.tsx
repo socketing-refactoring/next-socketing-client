@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
 import "../../../styles/tosspayment.css";
-import { Suspense, useState, useEffect } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { useOrderCreateMutation } from '../../../hooks/useOrderCreateMutation';
-import { toast } from 'react-toastify';
-import { ApiError } from 'next/dist/server/api-utils';
-import { Order } from '../../../types/api/order';
-import { ApiResponse } from '../../../types/api/common';
-import { AxiosError } from 'axios';
-import LoadingPage from '../../loading/page';
+import { Suspense, useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useOrderCreateMutation } from "../../../hooks/useOrderCreateMutation";
+import { toast } from "react-toastify";
+import { ApiError } from "next/dist/server/api-utils";
+import { Order } from "../../../types/api/order";
+import { ApiResponse } from "../../../types/api/common";
+import { AxiosError } from "axios";
+import LoadingPage from "../../loading/page";
 
 const WidgetSuccessPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [responseData, setResponseData] = useState(null);
+  const [setResponseData] = useState(null);
 
-  const { mutate, isLoading, isError, error } = useOrderCreateMutation();
+  const { mutate } = useOrderCreateMutation();
 
   useEffect(() => {
     const orderData = {
@@ -30,7 +30,13 @@ const WidgetSuccessPage = () => {
 
     console.log(orderData);
 
-    if (orderData.tossOrderId && orderData.amount && orderData.paymentKey && orderData.eventDatetimeId && orderData.seatIds) {
+    if (
+      orderData.tossOrderId &&
+      orderData.amount &&
+      orderData.paymentKey &&
+      orderData.eventDatetimeId &&
+      orderData.seatIds
+    ) {
       console.log("order api request");
 
       mutate(orderData, {
@@ -39,9 +45,13 @@ const WidgetSuccessPage = () => {
           router.push("/order/confirmation");
         },
         onError: (error: AxiosError<ApiError>) => {
-          const errorMessage =  error?.response?.data?.message || "주문 과정에서 오류가 발생했습니다.";
+          const errorMessage =
+            error?.response?.data?.message ||
+            "주문 과정에서 오류가 발생했습니다.";
           toast.error(errorMessage);
-          router.push(`/checkout/fail?code=${error.code}&message=${error.message}`);
+          router.push(
+            `/checkout/fail?code=${error.code}&message=${error.message}`
+          );
         },
       });
     }
@@ -50,7 +60,10 @@ const WidgetSuccessPage = () => {
   return (
     <div>
       <div className="box_section" style={{ width: "600px" }}>
-        <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" />
+        <img
+          width="100px"
+          src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png"
+        />
         <h2>결제를 완료했어요</h2>
         <div className="p-grid typography--p" style={{ marginTop: "50px" }}>
           <div className="p-grid-col text--left">
@@ -95,7 +108,7 @@ const WidgetSuccessPage = () => {
       </div> */}
     </div>
   );
-}
+};
 
 export default function Page() {
   return (

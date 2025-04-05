@@ -1,93 +1,22 @@
-"use client";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Add the necessary CSS
 import Link from "next/link";
-import { jwtDecode, JwtPayload } from "jwt-decode";
 import { usePathname, useRouter } from "next/navigation";
 import LoginModal from "../member/LoginModal";
 import useMemberStore from "../../store/member/useMemberStore";
 import Button from "./Button";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
-  const {
-    isLogin,
-    setIsLogin,
-    setMemberId,
-    memberName,
-    // memberNickname,
-    setMemberName,
-    setMemberNickname,
-    setIsLoginModalOpen,
-  } = useMemberStore();
+  const { member, isLogin, setIsLoginModalOpen } = useMemberStore();
+  const { resetAuth } = useAuth();
 
-  // const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
   const pathname = usePathname();
   const isOnMyPage = pathname === "/mypage";
 
-  const checkLoginStatus = () => {
-    const token = localStorage.getItem("authToken");
-    const storedName = localStorage.getItem("memberName");
-    const storedId = localStorage.getItem("memberId");
-
-    if (!token) {
-      setIsLogin(false);
-      setMemberName(null);
-      return;
-    }
-    if (isTokenExpired(token)) {
-      handleLogout();
-      return;
-    }
-    setIsLogin(true);
-
-    if (!storedName || !storedId) {
-      console.log("Failed to get user info from local storage");
-      return;
-    }
-    setMemberName(storedName);
-    setMemberId(storedId);
-  };
-
-  useEffect(() => {
-    checkLoginStatus();
-  }, []);
-
-  const isTokenExpired = (token: string): boolean => {
-    try {
-      const { exp } = jwtDecode<JwtPayload>(token);
-      if (!exp) {
-        console.log("Failed to get expiration time in the access token");
-        return true;
-      }
-
-      const currentTime = Math.floor(Date.now() / 1000);
-      return currentTime > exp;
-    } catch (error) {
-      console.error("Invalid token:", error);
-      return true;
-    }
-  };
-
-  // const handleSearch = () => {
-  //   if (searchQuery.trim() !== "") {
-  //     void router.push(`/search-results/${encodeURIComponent(searchQuery)}`);
-  //     setSearchQuery("");
-  //   } else {
-  //     toast.error("검색어를 입력해주세요");
-  //   }
-  // };
-
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("memberId");
-    localStorage.removeItem("memberName");
-    setMemberId(null);
-    setMemberName(null);
-    setMemberNickname(null);
-
-    setIsLogin(false);
+    resetAuth();
     toast.success("로그아웃되었습니다. 다시 로그인해주세요.");
     router.push("/");
   };
@@ -111,9 +40,7 @@ const Header = () => {
             </Link>
           </div>
         </div>
-        {/* 조건부 검색창 */}
-        {/* {shouldShowSearch && <SearchBar onSearch={handleSearch} />}{" "} */}
-        {/* 검색창 렌더링 */}
+
         {/* 로그인/로그아웃 상태에 따른 버튼 */}
         <div className="flex ml-2 space-x-1 sm:w-full md:w-[70%] lg:w-[60%] items-center justify-end">
           {!isLogin ? (
@@ -152,7 +79,7 @@ const Header = () => {
           ) : (
             <>
               <span className="hidden md:inline text-white pr-2">
-                <span className="font-bold">{memberName}</span>님, 안녕하세요
+                <span className="font-bold">{member.name}</span>님, 안녕하세요
               </span>
               <Button
                 onClick={handleLogout}

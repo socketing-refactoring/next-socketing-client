@@ -1,37 +1,24 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import LoadingPage from "../loading/page";
 import ErrorPage from "../error/page";
 import { fetchErrorMessages } from "../../constants/errorMessages";
 import Button from "../../components/common/Button";
-import Image from "next/image";
-import { formatToKoreanDateAndTime } from "../../utils/dateUtils";
+import { formatToKoreanDateAndTime } from "../../utils/event/dateUtils";
 import MyProfile from "./MyProfile";
-import { useQuery } from "react-query";
-import { ApiResponse } from "../../types/api/common";
 import { Order } from "../../types/api/order";
-import { fetchAllOrdersByMemberId } from "../../api/orderApi";
 import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
 import useMemberStore from "../../store/member/useMemberStore";
+import useOrderRetrievalQuery from '../../hooks/useOrderRetrievalQuery';
 
 const MyPage = () => {
   const [section, setSection] = useState("my-tickets");
   const [activeTab, setActiveTab] = useState("upcoming");
   const router = useRouter();
-  const { memberId } = useMemberStore();
-
-  const useOrders = (id: string) => {
-    return useQuery<ApiResponse<Order[]>>({
-      queryKey: ["all-orders", id],
-      queryFn: () =>
-        id ? fetchAllOrdersByMemberId(id) : Promise.reject("No ID provided"),
-      enabled: !!id,
-    });
-  };
-
-  const { data, isLoading, isError } = useOrders(memberId);
+  const { member } = useMemberStore();
+  const { data, isLoading, isError } = useOrderRetrievalQuery(member?.id);
 
   if (isLoading) return <LoadingPage />;
   if (isError) return <ErrorPage errorMessage={fetchErrorMessages.general} />;

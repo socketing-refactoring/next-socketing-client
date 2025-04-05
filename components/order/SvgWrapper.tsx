@@ -13,10 +13,6 @@ interface SvgWrapperProps {
   onAreaClick?: (areaId: string) => void;
 }
 
-interface ParsedSvgData {
-  svgString: string;
-}
-
 const SvgWrapper = forwardRef<SVGSVGElement, SvgWrapperProps>(
   ({ svgString, seats, areas, renderSeat, onAreaClick }, ref) => {
     const { currentAreaId, setCurrentAreaId, areaStat } = useReservationStore();
