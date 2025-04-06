@@ -38,7 +38,7 @@ const ScheduleCard = ({
   const isDisabled = !isTicketingStarted;
 
   const checkLogin = () => {
-    if (!member.id) {
+    if (!member) {
       return false;
     }
     return true;
