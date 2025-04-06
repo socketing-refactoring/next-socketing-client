@@ -49,7 +49,7 @@ const WidgetSuccessPage = () => {
             "주문 과정에서 오류가 발생했습니다.";
           toast.error(errorMessage);
           router.push(
-            `/checkout/fail?code=${error.code}&message=${error.message}`
+            `/checkout/fail?code=${error.code}&message=${error.response?.data?.message}`
           );
         },
       });

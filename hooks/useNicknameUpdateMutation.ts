@@ -19,7 +19,7 @@ export const useNicknameUpdateMutation = () => {
       toast.success(`닉네임이 ${data?.data.nickname}으로 변경되었습니다!`);
     },
     onError: (error: AxiosError<ApiErrorResponse>) => {
-      toast.error(error.message || "닉네임 변경에 실패했습니다.");
+      toast.error(error?.response?.data?.message || "닉네임 변경에 실패했습니다.");
     },
   });
 };
