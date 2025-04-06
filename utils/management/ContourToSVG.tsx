@@ -110,7 +110,7 @@ const ContourToSVG: React.FC<ContourToSVGProps> = ({
 
       return () => clearTimeout(retryTimeout);
     }
-  }, [error, retryCount]);
+  }, [error, processImage, retryCount]);
 
   useEffect(() => {
     if (isOpenCVReady && imageUrl) {
