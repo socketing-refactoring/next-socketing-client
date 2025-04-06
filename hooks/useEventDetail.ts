@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchOneEventDetail } from "../api/eventApi";
-import { ApiResponse } from "../types/api/common";
+import { ApiErrorResponse, ApiResponse } from "../types/api/common";
 import { DetailedEvent } from "../types/api/event";
 import { AxiosError } from 'axios';
 
 export const useEventDetail = (queryEventId: string) => {
-  return useQuery<ApiResponse<DetailedEvent>, AxiosError, ApiResponse<DetailedEvent>, [string, string]>({
+  return useQuery<ApiResponse<DetailedEvent>, AxiosError<ApiErrorResponse>, ApiResponse<DetailedEvent>, [string, string]>({
     queryKey: ["one-event-detail", queryEventId],
     queryFn: async ({ queryKey }) => {
       const [, urlEventId] = queryKey;

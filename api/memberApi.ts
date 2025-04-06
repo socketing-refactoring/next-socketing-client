@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ApiResponse } from "../types/api/common";
-import { Member } from "../types/api/member";
+import { Member, NicknameUpdatedMember } from "../types/api/member";
 import { API_SERVER_URL } from "../constants/server";
 import { toast } from "react-toastify";
 
@@ -18,14 +18,14 @@ export const fetchMemberInfo = async (
 export const updateMemberNickname = async (
   memberId: string,
   newNickname: string
-): Promise<ApiResponse<Member>> => {
+): Promise<ApiResponse<NicknameUpdatedMember>> => {
   const token = localStorage.getItem("authToken");
   if (!token) {
     toast.error("인증 토큰이 없습니다.");
     return;
   }
 
-  const response = await axios.patch<ApiResponse<Member>>(
+  const response = await axios.patch<ApiResponse<NicknameUpdatedMember>>(
     `${MEMBER_SERVER_URL}/${memberId}/nickname`,
     { nickname: newNickname },
     {

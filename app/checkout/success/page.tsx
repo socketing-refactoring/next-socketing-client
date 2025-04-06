@@ -5,16 +5,15 @@ import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useOrderCreateMutation } from "../../../hooks/useOrderCreateMutation";
 import { toast } from "react-toastify";
-import { ApiError } from "next/dist/server/api-utils";
 import { Order } from "../../../types/api/order";
-import { ApiResponse } from "../../../types/api/common";
+import { ApiErrorResponse, ApiResponse } from "../../../types/api/common";
 import { AxiosError } from "axios";
 import LoadingPage from "../../loading/page";
 
 const WidgetSuccessPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState(null);
 
   const { mutate } = useOrderCreateMutation();
 
@@ -44,7 +43,7 @@ const WidgetSuccessPage = () => {
           setResponseData(data);
           router.push("/order/confirmation");
         },
-        onError: (error: AxiosError<ApiError>) => {
+        onError: (error: AxiosError<ApiErrorResponse>) => {
           const errorMessage =
             error?.response?.data?.message ||
             "주문 과정에서 오류가 발생했습니다.";
