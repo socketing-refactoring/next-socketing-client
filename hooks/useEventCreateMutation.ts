@@ -1,9 +1,9 @@
-import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import { ApiError } from "next/dist/server/api-utils";
 import { createEvent } from "../api/eventApi";
+import { useMutation } from '@tanstack/react-query';
 
 export const useEventCreateMutation = () => {
   const router = useRouter();

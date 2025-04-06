@@ -3,7 +3,6 @@
 import { useParams } from "next/navigation";
 import useReservationStore from "../../../../store/reservation/useReservationStore";
 import { useEffect } from "react";
-import useEventDetail from "../../../../hooks/useEventDetail";
 import useEventSeatReservation from "../../../../hooks/useEventReservation";
 import { fetchErrorMessages } from "../../../../constants/errorMessages";
 import LoadingPage from "../../../loading/page";
@@ -19,6 +18,7 @@ import {
   SeatWithAreaWithReservation,
 } from "../../../../types/api/event";
 import ReservationCreationBox from "../../../../components/order/ReservationCreationBox";
+import { useEventDetail } from '../../../../hooks/useEventDetail';
 
 const ReservationPage = () => {
   const { eventId: urlEventId, eventDatetimeId: urlEventDatetimeId } =

@@ -1,44 +1,18 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import axios from "axios";
-import { toast } from "react-toastify";
 import Button from "../../../components/common/Button";
-import { useRouter } from "next/navigation";
-import { ApiErrorResponse } from "../../../types/api/common";
-import { AUTH_SERVER_URL } from "../../../api/authApi";
-
-interface JoinFormData {
-  name: string;
-  nickname: string;
-  email: string;
-  password: string;
-}
+import { JoinFormData, useJoinMutation } from '../../../hooks/useJoinMutation';
 
 const JoinPage = () => {
-  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<JoinFormData>();
 
-  const mutation = useMutation(
-    async (data: JoinFormData) => {
-      const response = await axios.post(`${AUTH_SERVER_URL}/join`, data);
-      return response.data;
-    },
-    {
-      onSuccess: () => {
-        toast.success("회원가입에 성공했습니다!");
-        router.push("/");
-      },
-      onError: (error: ApiErrorResponse) => {
-        toast.error(error?.message || "회원가입에 실패했습니다.");
-      },
-    }
-  );
+  const mutation = useJoinMutation();
+
 
   const onSubmit = (data: JoinFormData) => {
     mutation.mutate(data);
@@ -134,10 +108,10 @@ const JoinPage = () => {
             <div className="my-4 flex">
               <Button
                 type="submit"
-                disabled={mutation.isLoading}
+                disabled={mutation.isPending}
                 className="justify-center"
               >
-                {mutation.isLoading ? "가입 중..." : "가입하기"}
+                {mutation.isPending ? "가입 중..." : "가입하기"}
               </Button>
             </div>
           </form>

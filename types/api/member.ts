@@ -15,3 +15,8 @@ export interface AuthTokenData {
   expiresIn: string;
   accessToken: string;
 }
+
+export interface NicknameUpdatedMember {
+  id: string;
+  nickname: string;
+}

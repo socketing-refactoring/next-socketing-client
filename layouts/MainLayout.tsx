@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import Header from "../components/common/Header";
 import { useAuth } from "../hooks/useAuth";
 import {
@@ -11,6 +10,7 @@ import {
 import { toast } from "react-toastify";
 import useMemberStore from "../store/member/useMemberStore";
 import { useRouter } from "next/navigation";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function MainLayout({
   children,

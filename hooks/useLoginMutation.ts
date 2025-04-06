@@ -1,12 +1,12 @@
 import { toast } from "react-toastify";
 import axios, { AxiosError } from "axios";
-import { useMutation } from "react-query";
 import { AuthTokenData } from "../types/api/member";
 import { ApiErrorResponse, ApiResponse } from "../types/api/common";
 import { login } from "../api/authApi";
 import { decodeMemberIdFromToken } from "../utils/auth/token";
 import { fetchMemberInfo } from "../api/memberApi";
 import { useAuth } from "./useAuth";
+import { useMutation } from '@tanstack/react-query';
 
 export const useLoginMutation = () => {
   const { initializeAuth, resetAuth } = useAuth();

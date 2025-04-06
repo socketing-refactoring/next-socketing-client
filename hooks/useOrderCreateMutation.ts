@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from '@tanstack/react-query';
 import { createOrder } from "../api/orderApi";
 import { NewOrder } from "../types/api/order";
 

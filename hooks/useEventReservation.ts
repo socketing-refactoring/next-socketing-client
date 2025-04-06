@@ -1,27 +1,23 @@
-import { useQuery } from "react-query";
-import { ApiResponse } from "../types/api/common";
-import { SeatWithAreaWithReservation } from "../types/api/event";
 import { fetchOneEventReservationDetails } from "../api/eventApi";
+import { useQuery } from '@tanstack/react-query';
 
 export const useEventSeatReservation = (
   queryEventId: string,
   queryEventDatetimeId: string
 ) => {
-  return useQuery<ApiResponse<SeatWithAreaWithReservation[]>>(
-    ["one-event-reservations", queryEventDatetimeId],
-    async ({ queryKey }) => {
+  return useQuery({
+    queryKey: ["one-event-reservations", queryEventDatetimeId],
+    queryFn: async ({ queryKey }) => {
       const [, queryEventDatetimeId] = queryKey;
       return fetchOneEventReservationDetails(
-        queryEventId as string,
-        queryEventDatetimeId as string
+        queryEventId,
+        queryEventDatetimeId
       );
     },
-    {
-      enabled: !!queryEventDatetimeId,
-      refetchOnWindowFocus: false,
-      retry: 1,
-    }
-  );
+    enabled: !!queryEventDatetimeId,
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });  
 };
 
 export default useEventSeatReservation;

@@ -1,6 +1,5 @@
 "use client";
 
-import { useQuery } from "react-query";
 import { ApiResponse } from "../types/api/common";
 import { useCurrentTime } from "../hooks/useCurrentTime";
 import { EVENT_SERVER_STATIC_PATH, fetchAllEvents } from "../api/eventApi";
@@ -15,6 +14,7 @@ import { formatToKoreanDateAndTime } from "../utils/event/dateUtils";
 import TicketButton from "../components/main/TiketButton";
 import CardList from "../components/main/CardList";
 import Image from "next/image";
+import { useQuery } from '@tanstack/react-query';
 
 const UserMainPage = () => {
   const router = useRouter();
