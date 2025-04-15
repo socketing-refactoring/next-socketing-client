@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Add the necessary CSS
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
@@ -8,7 +7,7 @@ import useManagerStore from "../../store/manager/useManagerStore";
 
 const ManagementHeader = () => {
   const { resetAuth } = useAuth();
-  const { manager, isLogin } = useManagerStore();
+  const { manager, isManagerLogin } = useManagerStore();
 
   const router = useRouter();
   const handleLogout = () => {
@@ -41,7 +40,7 @@ const ManagementHeader = () => {
             </Link>
           </button>
 
-          {!isLogin ? (
+          {!isManagerLogin ? (
             <>
               <Button
                 variant="dark"

@@ -3,13 +3,28 @@ import axios, { AxiosError } from "axios";
 import { fetchManagerInfo } from "../api/managerApi";
 import { AuthTokenData } from "../types/api/manager";
 import { ApiErrorResponse, ApiResponse } from "../types/api/common";
-import { useAuth } from "./useAuth";
 import { useMutation } from "@tanstack/react-query";
 import { decodeManagerIdFromToken } from "../utils/auth/managerToken";
 import { managerLogin } from '../api/managerAuthApi';
+import { useRouter } from 'next/navigation';
+import useManagerStore from '../store/manager/useManagerStore';
+import { removeManagerAuthInfoInLocalStorage, setManagerAuthInfoIntoLocalStorage } from '../utils/auth/token';
 
 export const useManagerLoginMutation = () => {
-  const { initializeAuth, resetAuth } = useAuth();
+  const router = useRouter();
+  const { setIsManagerLogin, setManager } = useManagerStore();
+
+  const initializeManagerAuth = (token: string, manager: any) => {
+    setIsManagerLogin(true);
+    setManagerAuthInfoIntoLocalStorage(token, manager);
+    setManager(manager);
+  };
+
+  const resetManagerAuth = () => {
+    setIsManagerLogin(false);
+    removeManagerAuthInfoInLocalStorage();
+    setManager(null);
+  };
 
   return useMutation({
     mutationFn: managerLogin,
@@ -17,7 +32,7 @@ export const useManagerLoginMutation = () => {
       const token = data?.data?.accessToken;
       if (!token) {
         toast.error("토큰 정보가 없습니다.");
-        resetAuth();
+        resetManagerAuth();
         return;
       }
 
@@ -25,11 +40,13 @@ export const useManagerLoginMutation = () => {
       try {
         const response = await fetchManagerInfo(managerId);
         const manager = response?.data;
-        initializeAuth(token, manager);
+        initializeManagerAuth(token, manager);
+        
+        router.push("/management");
         toast.success("로그인되었습니다.");
         toast.success(`${manager.name} 님, 안녕하세요.`);
       } catch (error) {
-        resetAuth();
+        resetManagerAuth();
         if (axios.isAxiosError(error)) {
           const errorMessage =
             error.response?.data?.message ||

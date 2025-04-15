@@ -1,6 +1,7 @@
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { toast } from "react-toastify";
 import { Member } from "../../types/api/member";
+import { Manager } from '../../types/api/manager';
 
 export const isTokenExpired = (token: string): boolean => {
   try {
@@ -48,4 +49,36 @@ export const setAuthInfoIntoLocalStorage = (
 export const removeAuthInfoInLocalStorage = () => {
   localStorage.removeItem("authToken");
   localStorage.removeItem("user");
+};
+
+export const decodeManagerIdFromToken = (token: string) => {
+  try {
+    const decodedToken = jwtDecode<{ sub: string }>(token);
+    const decodedManagerId = decodedToken.sub;
+
+    if (!decodedManagerId) {
+      toast.error("토큰에서 사용자 정보를 불러오는 데 실패했습니다.");
+      return;
+    }
+    return decodedManagerId;
+  } catch (error) {
+    toast.error("토큰 저장 중 오류가 발생했습니다.:", error);
+  }
+};
+
+export const getManagerAuthInfoFromLocalStorage = (): Manager => {
+  return JSON.parse(localStorage.getItem("manager"));
+};
+
+export const setManagerAuthInfoIntoLocalStorage = (
+  managerToken: string,
+  manager: Manager
+) => {
+  localStorage.setItem("managerToken", managerToken);
+  localStorage.setItem("manager", JSON.stringify(manager));
+};
+
+export const removeManagerAuthInfoInLocalStorage = () => {
+  localStorage.removeItem("managerToken");
+  localStorage.removeItem("manager");
 };

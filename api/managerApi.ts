@@ -4,13 +4,13 @@ import { Manager, NicknameUpdatedManager } from "../types/api/manager";
 import { API_SERVER_URL } from "../constants/server";
 import { toast } from "react-toastify";
 
-export const MEMBER_SERVER_URL = API_SERVER_URL + "/api/v1/managers";
+export const MANAGER_SERVER_URL = API_SERVER_URL + "/api/v1/managers";
 
 export const fetchManagerInfo = async (
   managerId: string
 ): Promise<ApiResponse<Manager>> => {
   const response = await axios.get<ApiResponse<Manager>>(
-    `${MEMBER_SERVER_URL}/${managerId}`
+    `${MANAGER_SERVER_URL}/${managerId}`
   );
   return response.data;
 };
@@ -26,7 +26,7 @@ export const updateManagerNickname = async (
   }
 
   const response = await axios.patch<ApiResponse<NicknameUpdatedManager>>(
-    `${MEMBER_SERVER_URL}/${managerId}/nickname`,
+    `${MANAGER_SERVER_URL}/${managerId}/nickname`,
     { nickname: newNickname },
     {
       headers: {
