@@ -79,7 +79,7 @@ const ScheduleCard = ({
             disabled={isDisabled}
             className="text-sm"
           >
-            {isDisabled ? "일반 준비 중" : "예매하기"}
+            {isDisabled ? "예매 준비 중" : "예매하기"}
           </Button>
         </div>
       </div>

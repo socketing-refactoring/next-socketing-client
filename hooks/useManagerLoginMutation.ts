@@ -3,16 +3,16 @@ import axios, { AxiosError } from "axios";
 import { fetchManagerInfo } from "../api/managerApi";
 import { AuthTokenData } from "../types/api/manager";
 import { ApiErrorResponse, ApiResponse } from "../types/api/common";
-import { login } from "../api/authApi";
 import { useAuth } from "./useAuth";
 import { useMutation } from "@tanstack/react-query";
 import { decodeManagerIdFromToken } from "../utils/auth/managerToken";
+import { managerLogin } from '../api/managerAuthApi';
 
 export const useManagerLoginMutation = () => {
   const { initializeAuth, resetAuth } = useAuth();
 
   return useMutation({
-    mutationFn: login,
+    mutationFn: managerLogin,
     onSuccess: async (data: ApiResponse<AuthTokenData>) => {
       const token = data?.data?.accessToken;
       if (!token) {

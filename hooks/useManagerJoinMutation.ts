@@ -23,14 +23,14 @@ export const useManagerJoinMutation = (): UseMutationResult<
   return useMutation({
     mutationFn: async (data: JoinFormData) => {
       const response = await axios.post(
-        `${AUTH_SERVER_URL}/managers/join`,
+        `${AUTH_SERVER_URL}/manager/join`,
         data
       );
       return response.data;
     },
     onSuccess: () => {
       toast.success("회원가입에 성공했습니다!");
-      router.push("/");
+      router.push("/management");
     },
     onError: (error: AxiosError<ApiErrorResponse>) => {
       toast.error(error.response?.data?.message || "회원가입에 실패했습니다.");
