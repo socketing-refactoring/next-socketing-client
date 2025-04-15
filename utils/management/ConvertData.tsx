@@ -35,13 +35,11 @@ export function convertToCreateEventRequestDTO(
     place: step1.place,
     artist: step1.artist,
     thumbnail: step1.thumbnail,
-    eventDatetimes: step2.eventDatetimes.map((dt) =>
-      {
-        const parsed = dayjs(dt).tz("Asia/Seoul");
-        console.log("Before:", dt, "→ After:", parsed.toISOString());
-        return parsed.toISOString();
-      }
-    ),
+    eventDatetimes: step2.eventDatetimes.map((dt) => {
+      const parsed = dayjs(dt.value).tz("Asia/Seoul");
+      console.log("Before:", dt.value, "→ After:", parsed.toISOString());
+      return parsed.toISOString();
+    }),
     eventOpenTime: dayjs(step2.eventOpenTime).tz("Asia/Seoul").toISOString(),
     ticketingOpenTime: dayjs(step2.ticketingOpenTime)
       .tz("Asia/Seoul")

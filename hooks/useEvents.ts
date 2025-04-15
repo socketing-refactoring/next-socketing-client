@@ -1,7 +1,7 @@
 import { ApiResponse } from "../types/api/common";
 import { fetchOneEvent } from "../api/eventApi";
 import { Event } from "../types/api/event";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 export const useEvents = (eventId?: string) => {
   return useQuery<ApiResponse<Event>>({
@@ -14,6 +14,6 @@ export const useEvents = (eventId?: string) => {
     refetchOnWindowFocus: false,
     retry: 1,
   });
-}
+};
 
 export default useEvents;

@@ -18,7 +18,7 @@ import {
   SeatWithAreaWithReservation,
 } from "../../../../types/api/event";
 import ReservationCreationBox from "../../../../components/order/ReservationCreationBox";
-import { useEventDetail } from '../../../../hooks/useEventDetail';
+import { useEventDetail } from "../../../../hooks/useEventDetail";
 
 const ReservationPage = () => {
   const { eventId: urlEventId, eventDatetimeId: urlEventDatetimeId } =
@@ -43,9 +43,10 @@ const ReservationPage = () => {
     isLoading,
     isError,
   } = useEventDetail(urlEventId as string);
-  const {
-    data: reservationResponse,
-  } = useEventSeatReservation(urlEventId, urlEventDatetimeId);
+  const { data: reservationResponse } = useEventSeatReservation(
+    urlEventId,
+    urlEventDatetimeId
+  );
   const eventData = eventResponse?.data;
   const reservationData = reservationResponse?.data;
 

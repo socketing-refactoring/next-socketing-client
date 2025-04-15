@@ -62,8 +62,8 @@ const Step2 = ({
               {fields.map((item, index) => (
                 <div key={item.id} className="flex space-x-2 items-center">
                   <input
-                    defaultValue={getCurrentDateTime()}
                     type="datetime-local"
+                    value={item.value}
                     {...register(`eventDatetimes.${index}`, {
                       required: "공연 일정을 입력해 주세요.",
                     })}

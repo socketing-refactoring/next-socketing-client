@@ -6,7 +6,7 @@ import { login } from "../api/authApi";
 import { decodeMemberIdFromToken } from "../utils/auth/token";
 import { fetchMemberInfo } from "../api/memberApi";
 import { useAuth } from "./useAuth";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
 
 export const useLoginMutation = () => {
   const { initializeAuth, resetAuth } = useAuth();

@@ -5,7 +5,7 @@ import useMemberRetrievalQuery from "../../hooks/useMemberRetrievalQuery";
 import LoadingPage from "../loading/page";
 import ErrorPage from "../error/page";
 import { fetchErrorMessages } from "../../constants/errorMessages";
-import { useNicknameUpdateMutation } from '../../hooks/useNicknameUpdateMutation';
+import { useNicknameUpdateMutation } from "../../hooks/useNicknameUpdateMutation";
 
 const MyProfile = () => {
   const [profileData, setProfileData] = useState({

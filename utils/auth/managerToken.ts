@@ -1,6 +1,6 @@
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { toast } from "react-toastify";
-import { Manager } from '../../types/api/manager';
+import { Manager } from "../../types/api/manager";
 
 export const isTokenExpired = (token: string): boolean => {
   try {

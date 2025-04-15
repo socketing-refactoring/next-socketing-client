@@ -11,7 +11,7 @@ import MyProfile from "./MyProfile";
 import { Order } from "../../types/api/order";
 import { EVENT_SERVER_STATIC_PATH } from "../../api/eventApi";
 import useMemberStore from "../../store/member/useMemberStore";
-import useOrderRetrievalQuery from '../../hooks/useOrderRetrievalQuery';
+import useOrderRetrievalQuery from "../../hooks/useOrderRetrievalQuery";
 
 const MyPage = () => {
   const [section, setSection] = useState("my-tickets");

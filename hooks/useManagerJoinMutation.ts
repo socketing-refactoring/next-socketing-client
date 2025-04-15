@@ -1,10 +1,10 @@
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
-import { AUTH_SERVER_URL } from '../api/authApi';
-import { ApiErrorResponse, ApiResponse } from '../types/api/common';
-import { Member } from '../types/api/member';
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { AUTH_SERVER_URL } from "../api/authApi";
+import { ApiErrorResponse, ApiResponse } from "../types/api/common";
+import { Member } from "../types/api/member";
 
 export interface JoinFormData {
   name: string;
@@ -22,7 +22,10 @@ export const useManagerJoinMutation = (): UseMutationResult<
 
   return useMutation({
     mutationFn: async (data: JoinFormData) => {
-      const response = await axios.post(`${AUTH_SERVER_URL}/managers/join`, data);
+      const response = await axios.post(
+        `${AUTH_SERVER_URL}/managers/join`,
+        data
+      );
       return response.data;
     },
     onSuccess: () => {

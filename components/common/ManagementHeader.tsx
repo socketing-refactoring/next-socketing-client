@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
 import { useAuth } from "../../hooks/useAuth";
-import useManagerStore from '../../store/manager/useManagerStore';
+import useManagerStore from "../../store/manager/useManagerStore";
 
 const ManagementHeader = () => {
   const { resetAuth } = useAuth();
@@ -23,9 +23,9 @@ const ManagementHeader = () => {
 
   return (
     <>
-      <header
-        className="flex h-[76px] items-center justify-between pl-6 pr-4 py-4 bg-rose-400 text-white"
-      >        {/* 로고 */}
+      <header className="flex h-[76px] items-center justify-between pl-6 pr-4 py-4 bg-rose-400 text-white">
+        {" "}
+        {/* 로고 */}
         <div className="flex items-center flex-shrink-0">
           <div className="flex justify-start align-items">
             <Link href="/management">
@@ -33,18 +33,13 @@ const ManagementHeader = () => {
             </Link>
           </div>
         </div>
-
-
         {/* 로그인/로그아웃 상태에 따른 버튼 */}
         <div className="flex ml-2 space-x-1 sm:w-full md:w-[70%] lg:w-[60%] items-center justify-end">
-
-            <button
-              className="flex items-center space-x-2 bg-rose-500 text-white py-2 px-4 rounded-full hover:bg-rose-600 transition duration-300"
-            >
-              <Link href="/" className="hover:underline">
-                일반 사이트
-              </Link>
-            </button>
+          <button className="flex items-center space-x-2 bg-rose-500 text-white py-2 px-4 rounded-full hover:bg-rose-600 transition duration-300">
+            <Link href="/" className="hover:underline">
+              일반 사이트
+            </Link>
+          </button>
 
           {!isLogin ? (
             <>

@@ -14,7 +14,7 @@ import { formatToKoreanDateAndTime } from "../utils/event/dateUtils";
 import TicketButton from "../components/main/TiketButton";
 import CardList from "../components/main/CardList";
 import Image from "next/image";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 const UserMainPage = () => {
   const router = useRouter();
@@ -123,7 +123,7 @@ const UserMainPage = () => {
                 >
                   <div className="flex flex-col md:flex-row items-center gap-6">
                     <div className="h-48 md:w-24 md:h-32 flex-shrink-0">
-                      <Image
+                      <img
                         src={`${EVENT_SERVER_STATIC_PATH}/${event.thumbnail}`}
                         alt={event.title}
                         className="w-full h-full object-contain rounded-lg shadow-sm"

@@ -10,8 +10,8 @@ import {
 import { toast } from "react-toastify";
 import useMemberStore from "../store/member/useMemberStore";
 import { usePathname, useRouter } from "next/navigation";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ManagementHeader from '../components/common/ManagementHeader';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ManagementHeader from "../components/common/ManagementHeader";
 
 export default function MainLayout({
   children,
@@ -24,7 +24,6 @@ export default function MainLayout({
   const router = useRouter();
   const pathname = usePathname();
   const isManagement = pathname.startsWith("/management");
-
 
   const checkLoginStatus = () => {
     const token = localStorage.getItem("authToken");

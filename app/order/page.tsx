@@ -14,8 +14,7 @@ import { fetchErrorMessages } from "../../constants/errorMessages";
 const OrderPage = () => {
   const router = useRouter();
   const { member } = useMemberStore();
-  const { currentTempOrder, selectedSeats, event } =
-    useReservationStore();
+  const { currentTempOrder, selectedSeats, event } = useReservationStore();
 
   const [isAgreed, setIsAgreed] = useState(false);
   const seats = Array.from(selectedSeats);

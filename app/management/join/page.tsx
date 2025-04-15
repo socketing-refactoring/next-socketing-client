@@ -2,7 +2,10 @@
 
 import { useForm } from "react-hook-form";
 import Button from "../../../components/common/Button";
-import { JoinFormData, useManagerJoinMutation } from '../../../hooks/useManagerJoinMutation';
+import {
+  JoinFormData,
+  useManagerJoinMutation,
+} from "../../../hooks/useManagerJoinMutation";
 
 const JoinPage = () => {
   const {
@@ -12,7 +15,6 @@ const JoinPage = () => {
   } = useForm<JoinFormData>();
 
   const mutation = useManagerJoinMutation();
-
 
   const onSubmit = (data: JoinFormData) => {
     mutation.mutate(data);

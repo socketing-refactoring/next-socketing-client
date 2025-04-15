@@ -30,9 +30,7 @@ const ReservationCreationBox = (eventData: DetailedEvent) => {
       )[0].datetime,
       eventTitle: eventData.title,
       seats: Array.from(selectedSeats).map(
-        ({
-          ...seatWithoutReservation
-        }) => seatWithoutReservation
+        ({ ...seatWithoutReservation }) => seatWithoutReservation
       ),
     };
 

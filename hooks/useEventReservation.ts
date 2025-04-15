@@ -1,5 +1,5 @@
 import { fetchOneEventReservationDetails } from "../api/eventApi";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 export const useEventSeatReservation = (
   queryEventId: string,
@@ -17,7 +17,7 @@ export const useEventSeatReservation = (
     enabled: !!queryEventDatetimeId,
     refetchOnWindowFocus: false,
     retry: 1,
-  });  
+  });
 };
 
 export default useEventSeatReservation;
