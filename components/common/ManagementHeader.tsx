@@ -33,7 +33,7 @@ const ManagementHeader = () => {
           </div>
         </div>
         {/* 로그인/로그아웃 상태에 따른 버튼 */}
-        <div className="flex ml-2 space-x-1 sm:w-full md:w-[70%] lg:w-[60%] items-center justify-end">
+        <div className="hidden md:flex ml-2 space-x-1 sm:w-full md:w-[70%] lg:w-[60%] items-center justify-end">
           <button className="flex items-center space-x-2 bg-rose-500 text-white py-2 px-4 rounded-full hover:bg-rose-600 transition duration-300">
             <Link href="/" className="hover:underline">
               일반 사이트
