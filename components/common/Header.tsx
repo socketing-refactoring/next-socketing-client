@@ -21,7 +21,7 @@ const Header = () => {
   };
 
   const handleRegister = () => {
-    router.push("/auth/join");
+    router.push("/join");
   };
 
   const openMyPage = () => {
@@ -35,7 +35,7 @@ const Header = () => {
         {/* 로고 */}
         <div className="flex items-center flex-shrink-0">
           <div className="flex justify-start align-items">
-            <Link href="/" passHref>
+            <Link href="/">
               <div className="text-2xl font-bold">SocKeTing</div>
             </Link>
           </div>
