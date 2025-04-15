@@ -1,6 +1,11 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import { NewArea, NewEvent, NewSeat } from "../../types/api/event";
 import { Step1Form, Step2Form, Step3Form } from "../../types/page/management";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function convertToCreateEventRequestDTO(
   step1: Step1Form,
@@ -31,7 +36,11 @@ export function convertToCreateEventRequestDTO(
     artist: step1.artist,
     thumbnail: step1.thumbnail,
     eventDatetimes: step2.eventDatetimes.map((dt) =>
-      dayjs(dt.value).tz("Asia/Seoul").toISOString()
+      {
+        const parsed = dayjs(dt).tz("Asia/Seoul");
+        console.log("Before:", dt, "→ After:", parsed.toISOString());
+        return parsed.toISOString();
+      }
     ),
     eventOpenTime: dayjs(step2.eventOpenTime).tz("Asia/Seoul").toISOString(),
     ticketingOpenTime: dayjs(step2.ticketingOpenTime)

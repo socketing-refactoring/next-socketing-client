@@ -1,13 +1,14 @@
 "use client";
+
 import { ReactNode, useEffect } from "react";
-import SideNav from "../../components/management/SideNav";
+import SideNav from "../../../components/management/SideNav";
 import { usePathname } from "next/navigation";
-import { useManagementMenuStore } from "../../store/management/useManagementMenuStore";
+import { useManagementMenuStore } from "../../../store/management/useManagementMenuStore";
 import {
   findMatchingMenuByUrl,
   getCategoryLabelByMenuType,
   getMenuLabelByMenuType,
-} from "../../utils/management/managementMenu";
+} from "../../../utils/management/managementMenu";
 
 const ManagementLayout = ({ children }: { children: ReactNode }) => {
   const { activeMenu, setActiveMenu } = useManagementMenuStore();

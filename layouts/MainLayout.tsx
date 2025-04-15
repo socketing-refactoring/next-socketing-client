@@ -9,8 +9,9 @@ import {
 } from "../utils/auth/token";
 import { toast } from "react-toastify";
 import useMemberStore from "../store/member/useMemberStore";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ManagementHeader from '../components/common/ManagementHeader';
 
 export default function MainLayout({
   children,
@@ -21,6 +22,9 @@ export default function MainLayout({
   const { member, setMember, setIsLogin } = useMemberStore();
   const { resetAuth } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+  const isManagement = pathname.startsWith("/management");
+
 
   const checkLoginStatus = () => {
     const token = localStorage.getItem("authToken");
@@ -54,7 +58,8 @@ export default function MainLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Header />
+      {/* 관리 페이지일 때와 아닐 때 헤더를 구분 */}
+      {isManagement ? <ManagementHeader /> : <Header />}
       {children}
     </QueryClientProvider>
   );
