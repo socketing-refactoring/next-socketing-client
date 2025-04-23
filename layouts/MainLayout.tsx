@@ -61,7 +61,7 @@ export default function MainLayout({
     } else {
       checkUserLoginStatus();
     }
-  }, [checkManagerLoginStatus, checkUserLoginStatus, isManagement, pathname]);
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
