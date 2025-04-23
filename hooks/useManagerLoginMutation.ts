@@ -46,6 +46,7 @@ export const useManagerLoginMutation = () => {
         initializeManagerAuth(token, manager);
 
         router.push("/management");
+        window.location.reload();
         toast.success("로그인되었습니다.");
         toast.success(`${manager.name} 님, 안녕하세요.`);
       } catch (error) {

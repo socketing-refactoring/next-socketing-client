@@ -52,18 +52,24 @@ export default function MainLayout({
   };
 
   const checkManagerLoginStatus = () => {
-    const token = localStorage.getItem("managerToken");
-    if (!token || isTokenExpired(token)) {
-      resetManagerAuth();
-      toast.info("관리자 로그인이 만료되었습니다.");
-      router.push("/management/login");
-      return;
-    }
+    // const token = localStorage.getItem("managerToken");
+    // if (!token) {
+    //   resetManagerAuth();
+    //   router.push("/management/login");
+    //   return;
+    // }
+
+    // if (isTokenExpired(token)) {
+    //   resetManagerAuth();
+    //   toast.info("관리자 세션이 만료되었습니다. 로그인을 다시 진행해 주세요.");
+    //   router.push("/management/login");
+    //   return;
+    // }
 
     if (!manager) {
       const storedManager = getManagerAuthInfoFromLocalStorage();
       if (!storedManager) {
-        toast.error("로그인을 다시 진행해 주세요.");
+        toast.info("로그인을 다시 진행해 주세요.");
         return;
       }
 
