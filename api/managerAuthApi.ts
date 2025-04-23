@@ -8,3 +8,9 @@ export const managerLogin = async (data: LoginData) => {
   });
   return response.data;
 };
+
+export const managerLogout = async () => {
+  await axios.post(`${AUTH_SERVER_URL}/manager/logout`, null, {
+    withCredentials: true,
+  });
+};

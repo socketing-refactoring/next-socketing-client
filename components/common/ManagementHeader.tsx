@@ -4,15 +4,17 @@ import { useRouter } from "next/navigation";
 import Button from "./Button";
 import useManagerStore from "../../store/manager/useManagerStore";
 import { useManagerAuth } from "../../hooks/useManagerAuth";
+import { useManagerLogout } from "../../hooks/useManagerLogout";
 
 const ManagementHeader = () => {
   const { resetManagerAuth } = useManagerAuth();
   const { manager, isManagerLogin } = useManagerStore();
+  const managerLogoutMutation = useManagerLogout();
 
   const router = useRouter();
   const handleLogout = () => {
     resetManagerAuth();
-    toast.success("로그아웃되었습니다. 다시 로그인해주세요.");
+    managerLogoutMutation.mutate();
     router.push("/management");
   };
 
