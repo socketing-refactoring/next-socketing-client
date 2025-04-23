@@ -32,7 +32,12 @@ export default function MainLayout({
 
   const checkUserLoginStatus = () => {
     const token = localStorage.getItem("authToken");
-    if (!token || isTokenExpired(token)) {
+    if (!token) {
+      resetAuth();
+      return;
+    }
+
+    if (isTokenExpired(token)) {
       resetAuth();
       toast.success("로그아웃되었습니다. 다시 로그인해주세요.");
       router.push("/");
