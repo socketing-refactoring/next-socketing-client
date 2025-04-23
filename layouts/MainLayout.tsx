@@ -14,6 +14,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ManagementHeader from "../components/common/ManagementHeader";
 import useManagerStore from "../store/manager/useManagerStore";
+import { useManagerAuth } from "../hooks/useManagerAuth";
 
 export default function MainLayout({
   children,
@@ -24,6 +25,7 @@ export default function MainLayout({
   const { member, setMember, setIsLogin } = useMemberStore();
   const { manager, setManager, setIsManagerLogin } = useManagerStore();
   const { resetAuth } = useAuth();
+  const { resetManagerAuth } = useManagerAuth();
   const router = useRouter();
   const pathname = usePathname();
   const isManagement = pathname.startsWith("/management");
@@ -52,7 +54,7 @@ export default function MainLayout({
   const checkManagerLoginStatus = () => {
     const token = localStorage.getItem("managerToken");
     if (!token || isTokenExpired(token)) {
-      resetAuth();
+      resetManagerAuth();
       toast.info("관리자 로그인이 만료되었습니다.");
       router.push("/management/login");
       return;
