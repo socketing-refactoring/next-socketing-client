@@ -25,14 +25,9 @@ export default function MainLayout({
   const pathname = usePathname();
   const isManagement = pathname.startsWith("/management");
 
-  const checkLoginStatus = () => {
+  const checkUserLoginStatus = () => {
     const token = localStorage.getItem("authToken");
-    if (!token) {
-      resetAuth();
-      return;
-    }
-
-    if (isTokenExpired(token)) {
+    if (!token || isTokenExpired(token)) {
       resetAuth();
       toast.success("로그아웃되었습니다. 다시 로그인해주세요.");
       router.push("/");
@@ -51,13 +46,25 @@ export default function MainLayout({
     }
   };
 
+  const checkManagerLoginStatus = () => {
+    const token = localStorage.getItem("managerToken");
+    if (!token || isTokenExpired(token)) {
+      resetAuth();
+      toast.info("관리자 로그인이 만료되었습니다.");
+      router.push("/management/login");
+    }
+  };
+
   useEffect(() => {
-    checkLoginStatus();
-  }, []);
+    if (isManagement) {
+      checkManagerLoginStatus();
+    } else {
+      checkUserLoginStatus();
+    }
+  }, [checkManagerLoginStatus, checkUserLoginStatus, isManagement, pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* 관리 페이지일 때와 아닐 때 헤더를 구분 */}
       {isManagement ? <ManagementHeader /> : <Header />}
       {children}
     </QueryClientProvider>
