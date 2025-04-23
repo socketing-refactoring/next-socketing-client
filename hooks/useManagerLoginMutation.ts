@@ -43,10 +43,10 @@ export const useManagerLoginMutation = () => {
       try {
         const response = await fetchManagerInfo(managerId);
         const manager = response?.data;
-        initializeManagerAuth(token, manager);
 
-        router.push("/management");
+        initializeManagerAuth(token, manager);
         window.location.reload();
+        router.push("/management");
         toast.success("로그인되었습니다.");
         toast.success(`${manager.name} 님, 안녕하세요.`);
       } catch (error) {
