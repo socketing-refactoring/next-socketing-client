@@ -5,10 +5,13 @@ import { AuthTokenData } from "../types/api/manager";
 import { ApiErrorResponse, ApiResponse } from "../types/api/common";
 import { useMutation } from "@tanstack/react-query";
 import { decodeManagerIdFromToken } from "../utils/auth/managerToken";
-import { managerLogin } from '../api/managerAuthApi';
-import { useRouter } from 'next/navigation';
-import useManagerStore from '../store/manager/useManagerStore';
-import { removeManagerAuthInfoInLocalStorage, setManagerAuthInfoIntoLocalStorage } from '../utils/auth/token';
+import { managerLogin } from "../api/managerAuthApi";
+import { useRouter } from "next/navigation";
+import useManagerStore from "../store/manager/useManagerStore";
+import {
+  removeManagerAuthInfoInLocalStorage,
+  setManagerAuthInfoIntoLocalStorage,
+} from "../utils/auth/token";
 
 export const useManagerLoginMutation = () => {
   const router = useRouter();
@@ -41,7 +44,7 @@ export const useManagerLoginMutation = () => {
         const response = await fetchManagerInfo(managerId);
         const manager = response?.data;
         initializeManagerAuth(token, manager);
-        
+
         router.push("/management");
         toast.success("로그인되었습니다.");
         toast.success(`${manager.name} 님, 안녕하세요.`);

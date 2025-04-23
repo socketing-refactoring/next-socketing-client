@@ -6,10 +6,32 @@ import { toast } from "react-toastify";
 
 export const MANAGER_SERVER_URL = API_SERVER_URL + "/api/v1/managers";
 
+const api = axios.create({
+  baseURL: MANAGER_SERVER_URL,
+});
+
+api.interceptors.request.use(
+  (config) => {
+    const managerToken = localStorage.getItem("managerToken");
+
+    if (managerToken) {
+      config.headers["Authorization"] = `Bearer ${managerToken}`;
+    } else {
+      toast.error("인증 토큰이 없습니다.");
+      return;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export const fetchManagerInfo = async (
   managerId: string
 ): Promise<ApiResponse<Manager>> => {
-  const response = await axios.get<ApiResponse<Manager>>(
+  const response = await api.get<ApiResponse<Manager>>(
     `${MANAGER_SERVER_URL}/${managerId}`
   );
   return response.data;
@@ -19,20 +41,9 @@ export const updateManagerNickname = async (
   managerId: string,
   newNickname: string
 ): Promise<ApiResponse<NicknameUpdatedManager>> => {
-  const token = localStorage.getItem("authToken");
-  if (!token) {
-    toast.error("인증 토큰이 없습니다.");
-    return;
-  }
-
-  const response = await axios.patch<ApiResponse<NicknameUpdatedManager>>(
+  const response = await api.patch<ApiResponse<NicknameUpdatedManager>>(
     `${MANAGER_SERVER_URL}/${managerId}/nickname`,
-    { nickname: newNickname },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
+    { nickname: newNickname }
   );
 
   return response.data;
