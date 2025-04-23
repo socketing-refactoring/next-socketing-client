@@ -9,6 +9,8 @@ interface MemberState {
   setIsLoginModalOpen: (isOpen: boolean) => void;
   isLogin: boolean;
   setIsLogin: (isLogin: boolean) => void;
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (isMobileMenuOpen: boolean) => void;
 }
 
 const useMemberStore = create<MemberState>((set) => ({
@@ -16,9 +18,13 @@ const useMemberStore = create<MemberState>((set) => ({
   setMember: (member) => set({ member }),
   resetMember: () => set({ member: null }),
   isLoginModalOpen: false,
-  setIsLoginModalOpen: (isOpen) => set({ isLoginModalOpen: isOpen }),
+  setIsLoginModalOpen: (isOpen) =>
+    set({ isLoginModalOpen: isOpen, isMobileMenuOpen: false }),
   isLogin: false,
   setIsLogin: (isLogin) => set({ isLogin: isLogin }),
+  isMobileMenuOpen: false,
+  setIsMobileMenuOpen: (isMobileMenuOpen) =>
+    set({ isMobileMenuOpen: isMobileMenuOpen }),
 }));
 
 export default useMemberStore;

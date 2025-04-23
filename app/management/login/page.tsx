@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { LoginData } from "../../../types/api/manager";
 import useManagerLoginMutation from "../../../hooks/useManagerLoginMutation";
 import Button from "../../../components/common/Button";
+import Link from "next/link";
 
 const ManagerLoginPage = () => {
   const {
@@ -21,7 +22,7 @@ const ManagerLoginPage = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">
       <div className="flex">
-        <div className="w-96 m-20 mx-auto justify-center">
+        <div className="w-96 my-20 mx-10 justify-center">
           <div className="">
             <h1 className="text-2xl font-bold">로그인</h1>
           </div>
@@ -82,6 +83,12 @@ const ManagerLoginPage = () => {
                 {mutation.isPending ? "로그인 중..." : "로그인"}
               </Button>
             </div>
+          </div>
+          <div>
+            <span>판매자 회원이 아니신가요?</span>{" "}
+            <Link className="text-rose-400" href="/management/join">
+              회원가입
+            </Link>
           </div>
         </div>
       </div>

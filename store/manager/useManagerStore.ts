@@ -7,6 +7,8 @@ interface ManagerState {
   resetManager: () => void;
   isManagerLogin: boolean;
   setIsManagerLogin: (isLogin: boolean) => void;
+  isManagerMobileMenuOpen: boolean;
+  setIsManagerMobileMenuOpen: (isManagerMobileMenuOpen: boolean) => void;
 }
 
 const useManagerStore = create<ManagerState>((set) => ({
@@ -14,7 +16,11 @@ const useManagerStore = create<ManagerState>((set) => ({
   setManager: (manager) => set({ manager }),
   resetManager: () => set({ manager: null }),
   isManagerLogin: false,
-  setIsManagerLogin: (isManagerLogin) => set({ isManagerLogin: isManagerLogin }),
+  setIsManagerLogin: (isManagerLogin) =>
+    set({ isManagerLogin: isManagerLogin, isManagerMobileMenuOpen: false }),
+  isManagerMobileMenuOpen: false,
+  setIsManagerMobileMenuOpen: (isManagerMobileMenuOpen) =>
+    set({ isManagerMobileMenuOpen: isManagerMobileMenuOpen }),
 }));
 
 export default useManagerStore;

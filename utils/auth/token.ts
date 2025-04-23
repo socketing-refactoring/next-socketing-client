@@ -1,7 +1,16 @@
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { toast } from "react-toastify";
 import { Member } from "../../types/api/member";
-import { Manager } from '../../types/api/manager';
+import { Manager } from "../../types/api/manager";
+
+interface JwtPayloadWithRole {
+  role: string;
+  exp?: number;
+  iat?: number;
+  iss?: string;
+  sub?: string;
+  aud?: string;
+}
 
 export const isTokenExpired = (token: string): boolean => {
   try {
@@ -13,6 +22,21 @@ export const isTokenExpired = (token: string): boolean => {
 
     const currentTime = Math.floor(Date.now() / 1000);
     return currentTime > exp;
+  } catch (error) {
+    toast.error("유효하지 않은 토큰입니다.", error);
+    return true;
+  }
+};
+
+export const isManagerRole = (token: string): boolean => {
+  try {
+    const { role } = jwtDecode<JwtPayloadWithRole>(token);
+    if (role != "manager") {
+      toast.error("토큰 유효시간 조회에 오류가 발생했습니다.");
+      return false;
+    }
+
+    return true;
   } catch (error) {
     toast.error("유효하지 않은 토큰입니다.", error);
     return true;
