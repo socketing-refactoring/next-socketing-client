@@ -27,8 +27,6 @@ const WidgetSuccessPage = () => {
       seatIds: JSON.parse(searchParams.get("seats")),
     };
 
-    console.log(orderData);
-
     if (
       orderData.tossOrderId &&
       orderData.amount &&
@@ -36,8 +34,6 @@ const WidgetSuccessPage = () => {
       orderData.eventDatetimeId &&
       orderData.seatIds
     ) {
-      console.log("order api request");
-
       mutate(orderData, {
         onSuccess: (data: ApiResponse<Order>) => {
           setResponseData(data);

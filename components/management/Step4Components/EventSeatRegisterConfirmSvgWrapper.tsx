@@ -43,7 +43,6 @@ const EventSeatRegisterConfirmSvgWrapper = ({
             .join(""),
         });
       }
-      console.log("svgElement", svgElement);
     } catch (error) {
       console.error("Error parsing SVG string:", error);
     }

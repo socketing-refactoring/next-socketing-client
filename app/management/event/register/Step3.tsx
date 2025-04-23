@@ -73,7 +73,6 @@ const Step3 = ({
         totalMap: generatedData.svgString,
         areas: newAreas,
       };
-      console.log(step3Data);
       setStep3Data(step3Data);
       setIsSeatRegistered(true);
       toast.success("좌석 등록에 성공했습니다.");

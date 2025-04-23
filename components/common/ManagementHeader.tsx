@@ -2,16 +2,16 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
-import { useAuth } from "../../hooks/useAuth";
 import useManagerStore from "../../store/manager/useManagerStore";
+import { useManagerAuth } from "../../hooks/useManagerAuth";
 
 const ManagementHeader = () => {
-  const { resetAuth } = useAuth();
+  const { resetManagerAuth } = useManagerAuth();
   const { manager, isManagerLogin } = useManagerStore();
 
   const router = useRouter();
   const handleLogout = () => {
-    resetAuth();
+    resetManagerAuth();
     toast.success("로그아웃되었습니다. 다시 로그인해주세요.");
     router.push("/management");
   };

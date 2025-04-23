@@ -5,7 +5,6 @@ const TopContent = () => {
   const posterPreview = step1Data.thumbnail
     ? URL.createObjectURL(step1Data.thumbnail)
     : null;
-  console.log(posterPreview);
 
   return (
     <>

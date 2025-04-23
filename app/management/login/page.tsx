@@ -21,7 +21,7 @@ const ManagerLoginPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form">
-      <div className="flex">
+      <div className="flex justify-center">
         <div className="w-96 my-20 mx-10 justify-center">
           <div className="">
             <h1 className="text-2xl font-bold">로그인</h1>

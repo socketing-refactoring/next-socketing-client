@@ -21,8 +21,8 @@ const JoinPage = () => {
   };
 
   return (
-    <div className="flex">
-      <div className="w-96 m-20 mx-auto justify-center">
+    <div className="flex justify-center">
+      <div className="w-96 my-20 mx-10 justify-center">
         <div className="">
           <h1 className="text-2xl font-bold">회원가입</h1>
         </div>
