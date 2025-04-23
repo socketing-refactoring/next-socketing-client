@@ -31,7 +31,7 @@ api.interceptors.request.use(
 export const fetchManagerInfo = async (
   managerId: string
 ): Promise<ApiResponse<Manager>> => {
-  const response = await api.get<ApiResponse<Manager>>(
+  const response = await axios.get<ApiResponse<Manager>>(
     `${MANAGER_SERVER_URL}/${managerId}`
   );
   return response.data;
