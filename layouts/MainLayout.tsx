@@ -5,6 +5,7 @@ import Header from "../components/common/Header";
 import { useAuth } from "../hooks/useAuth";
 import {
   getAuthInfoFromLocalStorage,
+  getManagerAuthInfoFromLocalStorage,
   isTokenExpired,
 } from "../utils/auth/token";
 import { toast } from "react-toastify";
@@ -12,6 +13,7 @@ import useMemberStore from "../store/member/useMemberStore";
 import { usePathname, useRouter } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ManagementHeader from "../components/common/ManagementHeader";
+import useManagerStore from "../store/manager/useManagerStore";
 
 export default function MainLayout({
   children,
@@ -20,6 +22,7 @@ export default function MainLayout({
 }) {
   const [queryClient] = useState(() => new QueryClient());
   const { member, setMember, setIsLogin } = useMemberStore();
+  const { manager, setManager, setIsManagerLogin } = useManagerStore();
   const { resetAuth } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -52,6 +55,18 @@ export default function MainLayout({
       resetAuth();
       toast.info("관리자 로그인이 만료되었습니다.");
       router.push("/management/login");
+      return;
+    }
+
+    if (!manager) {
+      const storedManager = getManagerAuthInfoFromLocalStorage();
+      if (!storedManager) {
+        toast.error("로그인을 다시 진행해 주세요.");
+        return;
+      }
+
+      setIsManagerLogin(true);
+      setManager(storedManager);
     }
   };
 
