@@ -74,7 +74,7 @@ export default function MainLayout({
     if (!manager) {
       const storedManager = getManagerAuthInfoFromLocalStorage();
       if (!storedManager) {
-        toast.info("로그인을 다시 진행해 주세요.");
+        // toast.info("로그인을 다시 진행해 주세요.");
         return;
       }
 
