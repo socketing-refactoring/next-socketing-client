@@ -32,7 +32,6 @@ const Step2 = ({
 
   useEffect(() => {
     if (step2Data && currentStep === 2) {
-      setValue("eventDatetimes", step2Data.eventDatetimes || []);
       setValue("ticketingOpenTime", step2Data.ticketingOpenTime || "");
       setValue("eventOpenTime", step2Data.eventOpenTime || "");
       trigger();
