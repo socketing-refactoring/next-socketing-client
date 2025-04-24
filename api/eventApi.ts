@@ -7,9 +7,26 @@ import {
   SeatWithAreaWithReservation,
 } from "../types/api/event";
 import { ApiResponse } from "../types/api/common";
+import { toast } from "react-toastify";
 
 export const EVENT_SERVER_URL = API_SERVER_URL + "/api/v1/events";
 export const EVENT_SERVER_STATIC_PATH = API_SERVER_URL + "/upload";
+
+const apiClient = axios.create({
+  baseURL: EVENT_SERVER_URL,
+});
+
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("managerToken");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  } else {
+    toast.error("로그인이 필요합니다.");
+  }
+
+  return config;
+});
 
 export const fetchOneEvent = async (
   eventId: string
@@ -68,7 +85,7 @@ export const createEvent = async (data: NewEvent) => {
     formData.append("thumbnail", data.thumbnail);
   }
 
-  const response = await axios.post(EVENT_SERVER_URL, formData, {
+  const response = await apiClient.post(EVENT_SERVER_URL, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
