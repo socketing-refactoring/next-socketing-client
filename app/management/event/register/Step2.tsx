@@ -63,7 +63,6 @@ const Step2 = ({
                 <div key={item.id} className="flex space-x-2 items-center">
                   <input
                     type="datetime-local"
-                    defaultValue={item.value}
                     {...register(`eventDatetimes.${index}`, {
                       required: "공연 일정을 입력해 주세요.",
                     })}
