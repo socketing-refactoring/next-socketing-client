@@ -4,6 +4,7 @@ import { formatToKoreanDateAndTime } from "../../../utils/event/dateUtils";
 
 const EventDatetimeSidebar = () => {
   const { step2Data } = useManagementEventStepStore();
+  console.log(step2Data.eventDatetimes);
 
   return (
     <div className="h-full flex flex-col overflow-y-auto space-y-3">
@@ -14,7 +15,7 @@ const EventDatetimeSidebar = () => {
             key={index}
             className="w-full md:w-[150px] p-3 text-sm bg-white font-bold shadow rounded-lg text-center border"
           >
-            {formatToKoreanDateAndTime((datetime as { value: string }).value)}
+            {formatToKoreanDateAndTime(datetime.value)}
           </div>
         ))}
       </div>

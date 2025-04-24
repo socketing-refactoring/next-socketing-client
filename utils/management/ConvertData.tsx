@@ -27,8 +27,6 @@ export function convertToCreateEventRequestDTO(
     ),
   }));
 
-  console.log(step2.eventDatetimes);
-
   return {
     title: step1.title,
     description: step1.description,
@@ -36,7 +34,7 @@ export function convertToCreateEventRequestDTO(
     artist: step1.artist,
     thumbnail: step1.thumbnail,
     eventDatetimes: step2.eventDatetimes.map((dt) => {
-      const parsed = dayjs((dt as { value: string }).value).tz("Asia/Seoul");
+      const parsed = dayjs(dt.value).tz("Asia/Seoul");
       return parsed.toISOString();
     }),
     eventOpenTime: dayjs(step2.eventOpenTime).tz("Asia/Seoul").toISOString(),
