@@ -39,12 +39,10 @@ const ReservationConfirmationTemplate = ({ data }: ReservationConfirmProps) => {
             {/* User Info */}
             <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
               <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center">
-                <span className="p-bold">{data.orderMember.memberName}</span>
+                <span className="p-bold">{data.orderMember.name}</span>
               </div>
               <div>
-                <p className="p-bold text-gray-800">
-                  {data.orderMember.memberEmail}
-                </p>
+                <p className="p-bold text-gray-800">{data.orderMember.email}</p>
               </div>
             </div>
 
