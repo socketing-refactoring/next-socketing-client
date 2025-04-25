@@ -37,7 +37,7 @@ const SeatObj = React.memo(({ seatData }: SeatObjProps) => {
       toast.error(`최대 ${MAX_TICKET}개의 좌석만 선택할 수 있습니다.`);
       return;
     }
-    setSelectedSeats(seatData); // 좌석 선택
+    setSelectedSeats(seatData);
   };
 
   return (

@@ -61,7 +61,6 @@ export interface EventDatetime {
 export interface DetailedEvent extends Event {
   totalMap: string;
   areas: Area[];
-  seats: Seat[];
 }
 
 export interface Area {

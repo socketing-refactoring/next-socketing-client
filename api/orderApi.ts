@@ -53,3 +53,12 @@ export const fetchOneOrder = async (
   );
   return response.data;
 };
+
+export const cancelOrder = async (
+  orderId: string
+): Promise<ApiResponse<null>> => {
+  const response = await axios.post<ApiResponse<null>>(
+    `ORDER_SERVER_URL/${orderId}/cancel`
+  );
+  return response.data;
+};

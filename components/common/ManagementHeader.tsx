@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
@@ -15,7 +14,6 @@ const ManagementHeader = () => {
   const handleLogout = () => {
     resetManagerAuth();
     managerLogoutMutation.mutate();
-    router.push("/management");
   };
 
   const handleRegister = () => {

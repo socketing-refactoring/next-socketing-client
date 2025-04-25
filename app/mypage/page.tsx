@@ -92,7 +92,7 @@ const MyPage = () => {
                 </p>
               </div>
               <Button
-                onClick={() => router.push(`/mypage/detail/${order.id}`)}
+                onClick={() => router.push(`/mypage/order/${order.id}`)}
                 className="hidden md:inline-block"
                 variant={`${
                   order.canceledAt !== null ? "secondary" : "primary"
@@ -101,7 +101,7 @@ const MyPage = () => {
                 {order.canceledAt !== null ? "취소된 티켓" : "예매 정보 보기"}
               </Button>
               <Button
-                onClick={() => router.push(`/mypage/detail/${order.id}`)}
+                onClick={() => router.push(`/mypage/order/${order.id}`)}
                 size="sm"
                 className="mt-3 md:hidden"
                 variant={`${
