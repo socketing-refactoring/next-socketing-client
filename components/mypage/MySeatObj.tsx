@@ -7,7 +7,7 @@ interface SeatProps {
 }
 
 const MySeatObj: React.FC<SeatProps> = ({ reserved }) => {
-  const statusColor = getStatusColor(reserved ? "reserved" : "available");
+  const statusColor = getStatusColor(reserved ? "selected" : "available");
 
   return (
     <g className="seat-group">

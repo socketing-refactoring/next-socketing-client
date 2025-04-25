@@ -44,7 +44,7 @@ const MyDetailPage = () => {
   const openCancelModal = () => setIsCancelModalOpen(true);
   const openShowModal = async () => {
     setSelectedSeatIds(
-      order?.reservations?.map((reservation) => reservation.seatId)
+      order?.reservationDetailList?.map((reservation) => reservation.seatId)
     );
     const eventData = await fetchOneEventDetail(order.orderEvent.id);
     setEventData(eventData.data ?? null);
@@ -137,14 +137,14 @@ const MyDetailPage = () => {
                       좌석 위치 확인
                     </Button>
                   </div>
-                  {/* <div className="text-gray-600">
-                    {order.reservations?.map((reservation, index) => (
+                  <div className="text-gray-600">
+                    {order.reservationDetailList?.map((reservation, index) => (
                       <div key={reservation.seatId || index} className="mb-1">
-                        {reservation?.seatAreaLabel}구역 {reservation?.seatRow}
-                        열 {reservation?.seatNumber}번
+                        {reservation?.areaLabel}구역 {reservation?.seatRow}열{" "}
+                        {reservation?.seatNumber}번
                       </div>
                     ))}
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>

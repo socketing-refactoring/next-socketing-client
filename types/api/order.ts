@@ -22,7 +22,7 @@ export interface Order {
   orderEvent: OrderEvent;
   eventDatetimeId: string;
   eventDatetime: string;
-  reservations: Reservation[];
+  reservationDetailList: Reservation[];
   canceledAt: string;
   createdAt: string;
 }
@@ -45,8 +45,12 @@ export interface OrderEvent {
 export interface Reservation {
   id: string;
   seatId: string;
+  seatRow?: number;
+  seatNumber?: number;
+  areaId?: string;
+  areaLabel?: string;
+  areaPrice?: string;
 }
-
 export interface flatReservation {
   id;
   string;
