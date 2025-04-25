@@ -28,9 +28,10 @@ export interface Order {
 }
 
 export interface OrderMember {
-  memberId: string;
-  memberName: string;
-  memberEmail: string;
+  id: string;
+  name: string;
+  email: string;
+  nickname?: string;
 }
 
 export interface OrderEvent {

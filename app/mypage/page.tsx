@@ -51,66 +51,88 @@ const MyPage = () => {
           </div>
         ) : (
           orders?.map((order) => (
-            <li
-              key={order.id}
-              className="p-4 px-6 border border-gray-300 rounded-lg shadow-sm flex flex-col md:flex-row md:items-center space-x-4"
-            >
-              <div className="flex justify-around items-start m-2">
-                <img
-                  src={`${EVENT_SERVER_STATIC_PATH}/${order.orderEvent.thumbnail}`}
-                  alt={order.orderEvent.title}
-                  className="md:w-16 h-24 rounded-lg object-cover"
-                />
-              </div>
-              <div className="flex-1 pl-3">
-                <h3 className="text-lg font-bold text-gray-700 mb-1">
-                  {order.orderEvent.title}
-                </h3>
-                <p className="text-sm text-gray-500">
-                  <span className="inline-block w-8 md:w-14 font-semibold">
-                    예매
-                  </span>
-                  {formatToKoreanDateAndTime(order.createdAt)}
-                </p>
-                <p className="text-sm text-gray-500">
-                  <span className="inline-block w-8 md:w-14 font-semibold">
-                    일정
-                  </span>
-                  {formatToKoreanDateAndTime(order.eventDatetime)}
-                </p>
-                <p className="text-sm text-gray-500">
-                  <span className="inline-block w-8 md:w-14 font-semibold">
-                    장소
-                  </span>
-                  {order.orderEvent.place}
-                </p>
-                <p className="text-sm text-gray-500">
-                  <span className="inline-block w-8 md:w-14 font-semibold">
-                    출연
-                  </span>
-                  {order.orderEvent.artist}
-                </p>
-              </div>
-              <Button
-                onClick={() => router.push(`/mypage/order/${order.id}`)}
-                className="hidden md:inline-block"
-                variant={`${
-                  order.canceledAt !== null ? "secondary" : "primary"
-                }`}
-              >
-                {order.canceledAt !== null ? "취소된 티켓" : "예매 정보 보기"}
-              </Button>
-              <Button
-                onClick={() => router.push(`/mypage/order/${order.id}`)}
-                size="sm"
-                className="mt-3 md:hidden"
-                variant={`${
-                  order.canceledAt !== null ? "secondary" : "primary"
-                }`}
-              >
-                {order.canceledAt !== null ? "취소된 티켓" : "예매 정보 보기"}
-              </Button>
-            </li>
+            <div key={order.id}>
+              <p className="text-sm text-gray-500 px-1 py-2">
+                {formatToKoreanDateAndTime(order.createdAt)}
+              </p>
+              <li className="p-4 px-6 border border-gray-300 rounded-lg shadow-sm flex flex-col md:flex-row md:items-center space-x-4">
+                <div className="flex justify-around items-start m-2">
+                  <img
+                    src={`${EVENT_SERVER_STATIC_PATH}/${order.orderEvent.thumbnail}`}
+                    alt={order.orderEvent.title}
+                    className="md:w-16 h-24 rounded-lg object-cover"
+                  />
+                </div>
+                <div className="flex-1 pl-3">
+                  <h3 className="text-lg font-bold text-gray-700 mb-1">
+                    {order.orderEvent.title}
+                  </h3>
+                  <div className="text-sm text-gray-500">
+                    <div className="inline-block w-8 md:w-14 font-semibold">
+                      일정
+                    </div>
+                    {formatToKoreanDateAndTime(order.eventDatetime)}
+                  </div>
+                  <p className="text-sm text-gray-500">
+                    <span className="inline-block w-8 md:w-14 font-semibold">
+                      장소
+                    </span>
+                    {order.orderEvent.place}
+                  </p>
+                  <div className="text-sm text-gray-500">
+                    {/* <div className="block w-8 md:w-14 font-semibold">
+                      좌석
+                    </div> */}
+                    <div className="block mt-1">
+                      {order.reservationDetailList
+                        ?.slice()
+                        .sort((a, b) => {
+                          const areaCompare = a.areaLabel.localeCompare(
+                            b.areaLabel
+                          );
+                          if (areaCompare !== 0) return areaCompare;
+
+                          if (a.seatRow === b.seatRow) {
+                            return a.seatNumber - b.seatNumber;
+                          }
+                          return a.seatRow - b.seatRow;
+                        })
+                        .map((reservation, index) => (
+                          <div
+                            key={reservation.seatId || index}
+                            className="flex-col"
+                          >
+                            <div>
+                              {reservation?.areaLabel}구역{" "}
+                              {reservation?.seatRow}열 {reservation?.seatNumber}
+                              번
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => router.push(`/mypage/order/${order.id}`)}
+                  className="hidden md:inline-block"
+                  variant={`${
+                    order.canceledAt !== null ? "secondary" : "primary"
+                  }`}
+                >
+                  {order.canceledAt !== null ? "취소된 티켓" : "예매 정보 보기"}
+                </Button>
+                <Button
+                  onClick={() => router.push(`/mypage/order/${order.id}`)}
+                  size="sm"
+                  className="mt-3 md:hidden"
+                  variant={`${
+                    order.canceledAt !== null ? "secondary" : "primary"
+                  }`}
+                >
+                  {order.canceledAt !== null ? "취소된 티켓" : "예매 정보 보기"}
+                </Button>
+              </li>
+            </div>
           ))
         )}
       </ul>

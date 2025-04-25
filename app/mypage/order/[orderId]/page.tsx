@@ -91,18 +91,16 @@ const MyDetailPage = () => {
           {/* Reservation Details */}
           <div className="p-6 space-y-6">
             {/* User Info */}
-            {/* <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
-              <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center">
-                <span className="font-bold">
-                  {order.orderMember.memberName}
-                </span>
+            <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+              <div className="w-12 h-12 rounded-sm flex items-center justify-center">
+                <span className="font-bold">{order.orderMember.name}</span>
               </div>
               <div>
                 <p className="font-bold text-gray-800">
-                  {order.orderMember.memberEmail}
+                  {order.orderMember.email}
                 </p>
               </div>
-            </div> */}
+            </div>
 
             {/* Event Details */}
             <div className="space-y-4">
@@ -138,12 +136,27 @@ const MyDetailPage = () => {
                     </Button>
                   </div>
                   <div className="text-gray-600">
-                    {order.reservationDetailList?.map((reservation, index) => (
-                      <div key={reservation.seatId || index} className="mb-1">
-                        {reservation?.areaLabel}구역 {reservation?.seatRow}열{" "}
-                        {reservation?.seatNumber}번
-                      </div>
-                    ))}
+                    {order.reservationDetailList
+                      ?.slice()
+                      .sort((a, b) => {
+                        const areaCompare = a.areaLabel.localeCompare(
+                          b.areaLabel
+                        );
+                        if (areaCompare !== 0) return areaCompare;
+
+                        if (a.seatRow === b.seatRow) {
+                          return a.seatNumber - b.seatNumber;
+                        }
+                        return a.seatRow - b.seatRow;
+                      })
+                      .map((reservation, index) => (
+                        <div key={reservation.seatId || index} className="mb-1">
+                          <div>
+                            {reservation?.areaLabel}구역 {reservation?.seatRow}
+                            열 {reservation?.seatNumber}번
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>
