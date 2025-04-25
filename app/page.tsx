@@ -83,10 +83,6 @@ const UserMainPage = () => {
         .tz("Asia/Seoul")
         .toISOString(),
     }))
-    .filter((event) => {
-      // ticketingOpenTime으로부터 5분(300000ms)이 지나지 않은 이벤트만 포함
-      return dayjs(event.ticketingOpenTime).valueOf() > now - 21600000;
-    })
     .sort(
       (a, b) =>
         dayjs(a.ticketingOpenTime).valueOf() -

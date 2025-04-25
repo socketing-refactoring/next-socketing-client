@@ -66,8 +66,8 @@ const MainBanner = ({ event }: MainBannerProps) => {
                   : "bg-rose-500 hover:bg-rose-600"
               }`}
               onClick={() => {
-                const memberId = localStorage.getItem("memberId");
-                if (memberId) {
+                const user = localStorage.getItem("user");
+                if (user) {
                   router.push(`/event/${event.id}`);
                 } else {
                   toast.success(
