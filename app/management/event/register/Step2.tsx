@@ -28,10 +28,12 @@ const Step2 = ({
   const { fields, append, remove } = useFieldArray<Step2Form>({
     control,
     name: "eventDatetimes",
+    rules: { required: true },
   });
 
   useEffect(() => {
     if (step2Data && currentStep === 2) {
+      setValue("eventDatetimes", step2Data.eventDatetimes || []);
       setValue("ticketingOpenTime", step2Data.ticketingOpenTime || "");
       setValue("eventOpenTime", step2Data.eventOpenTime || "");
       trigger();
@@ -62,8 +64,7 @@ const Step2 = ({
                 <div key={item.id} className="flex space-x-2 items-center">
                   <input
                     type="datetime-local"
-                    value={item.value}
-                    {...register(`eventDatetimes.${index}`, {
+                    {...register(`eventDatetimes.${index}.value`, {
                       required: "공연 일정을 입력해 주세요.",
                     })}
                     className="w-full mt-1 p-2 border rounded"
