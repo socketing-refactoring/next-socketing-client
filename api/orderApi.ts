@@ -57,7 +57,7 @@ export const fetchOneOrder = async (
 export const cancelOrder = async (
   orderId: string
 ): Promise<ApiResponse<null>> => {
-  const response = await axios.post<ApiResponse<null>>(
+  const response = await apiClient.post<ApiResponse<null>>(
     `${ORDER_SERVER_URL}/${orderId}/cancel`
   );
   return response.data;

@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { Seat, SeatStatus } from "../../types/api/event";
+import React from "react";
 import { getStatusColor } from "../../utils/event/getSeatInfo";
 
 interface SeatProps {
