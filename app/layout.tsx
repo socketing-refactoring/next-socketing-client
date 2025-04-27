@@ -4,6 +4,7 @@ import "../styles/global.css";
 import "../styles/common.scss";
 import { ToastContainer } from "react-toastify";
 import MainLayout from "../layouts/MainLayout";
+import { Analytics } from "@vercel/analytics/react";
 
 const notoSansKr = Noto_Sans_KR({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className={notoSansKr.className}>
         <MainLayout>{children}</MainLayout>
         <ToastContainer></ToastContainer>
+        <Analytics />
       </body>
     </html>
   );
